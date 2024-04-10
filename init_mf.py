@@ -48,7 +48,7 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
                         cmd = cmd + 'GTR{1/1/1/1/1}+FO,'
                     else:
                         cmd = cmd + 'GTR{1/1/1/1/1}+FO}"'
-                cmd = cmd + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' --link-exchange-rates -init_nucl_freq ' + str(method)
+                cmd = cmd + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -init_nucl_freq ' + str(method)
             os.system(cmd)
             
             iq_file = pre + '/c'+str(c)+'.iqtree'
