@@ -4,9 +4,13 @@ import math
 from scipy.stats import chi2
 import csv
 
-def init_mf(iqtree_loc, file_name, class_num, method, nt, pre):
+def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
     class_num = int(class_num)
     method = int(method)
+    
+    if treefile != '':
+        treefile == ' -te ' + treefile
+    
     if pre == 'default':
         pre = file_name.split('/')[-1].split('.')[0] + '_i' + str(method)
     if not os.path.isfile(pre):
@@ -17,7 +21,7 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre):
     
     for c in range(1, class_num+1):
         if c == 1:
-            cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m GTR{1,1,1,1,1}+FO -pre ' + pre + '/c1 -nt ' +nt
+            cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m GTR{1,1,1,1,1}+FO -pre ' + pre + '/c1 -nt ' +nt + treefile
             os.system(cmd)
             
             iq_file = pre + '/c1.iqtree'
@@ -32,10 +36,10 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre):
             
         else:
             print(c)
-            if method == 3:
+            if method >= 3:
                 pre_result_file = pre + '/c' + str(c-1)
                 print(pre_result_file)
-                cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + model_cmd(pre_result_file, c-1) + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' --link-exchange-rates -opt_input_val'
+                cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + model_cmd(pre_result_file, c-1, method) + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -opt_input_val' + treefile
                 print(cmd)
             elif method == 1 or method == 2 or method == 0:
                 cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m MIX"{'
@@ -77,7 +81,7 @@ def get_result(file, c):
     bic = para*math.log(sites) - 2*lnl
     return lnl, bic, int(para), time
     
-def model_cmd(filename, class_num):
+def model_cmd(filename, class_num, method):
     iqtree_file = filename + '.iqtree'
     
     cmd = 'MIX"{GTR{1/1/1/1/1}+FO'
@@ -113,8 +117,12 @@ def model_cmd(filename, class_num):
             if j != class_num -1:
                 cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]) + ',GTR{1/1/1/1/1}+FO'
             else:
-                cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]/2) + '}"'
-    
+                if method == 3:
+                    cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]/2) + '}"'
+                elif method == 4:
+                    cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/(2/3)) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]/(1/3)) + '}"'
+                elif method == 5:
+                    cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO{0.25/0.25/0.25/0.25}:1:' + str(sorted_list[0][j]/2) + '}"'
     return cmd
 
 
@@ -131,11 +139,13 @@ parser.add_argument('--nt', '-nt', help='',
                     default = '1')
 parser.add_argument('--pre', '-pre', help='',
                     default = 'default')
+parser.add_argument('--treefile', '-nt', help='',
+                    default = '')
 args = parser.parse_args()
 
 
 if __name__ == '__main__':
     try:
-        init_mf(args.iqtree_loc, args.file_name, args.class_num, args.method, args.nt, args.pre)
+        init_mf(args.iqtree_loc, args.file_name, args.class_num, args.method, args.nt, args.pre, args.treefile)
     except Exception as e:
         print(e)
