@@ -120,7 +120,7 @@ def model_cmd(filename, class_num, method):
                 if method == 3:
                     cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]/2) + '}"'
                 elif method == 4:
-                    cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/(2/3)) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]/(1/3)) + '}"'
+                    cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]*(2/3)) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]*(1/3)) + '}"'
                 elif method == 5:
                     cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO{0.25/0.25/0.25/0.25}:1:' + str(sorted_list[0][j]/2) + '}"'
     return cmd
