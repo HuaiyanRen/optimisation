@@ -7,7 +7,7 @@ modelparas = pd.read_excel('f81.xlsx')
 seed_num = 2024
 
 class_num = [6]
-taxa_num =[50,100]
+taxa_num =[10,25]
 
 for c_num in class_num:
     for t_num in taxa_num:
