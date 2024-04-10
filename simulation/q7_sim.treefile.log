@@ -1,0 +1,40 @@
+IQ-TREE multicore version 2.2.8.mix COVID-edition for Linux 64-bit built Feb  3 2024
+Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams, Ly Trong Nhan.
+
+Host:    dayhoff.uds.anu.edu.au (AVX2, FMA3, 1007 GB RAM)
+Command: /mnt/data/dayhoff/home/u7151703/software/iqtree-2.2.8.mix-Linux/bin/iqtree2 --alisim q7_sim -m MIX{GTR{0.344198/4.2793/0.289778/1.00207/1.02532}+F{0.329764/0.360188/0.0864701/0.223578}:1:0.2094,GTR{0.714813/25.3313/0.593867/0.813132/28.9033}+F{0.261572/0.366643/0.200888/0.170897}:1:0.1535,GTR{1.49119/0.0776448/1.05463/1.85688/80.8827}+F{0.322277/0.134535/0.222824/0.320364}:1:0.0867,GTR{5.65182/38.7248/2.36223/6.11001/0.913579}+F{0.175626/0.0872307/0.44894/0.288203}:1:0.1092,GTR{1.28724/2.81269/0.91585/0.814987/3.76128}+F{0.154772/0.289635/0.406589/0.149003}:1:0.2304,GTR{1.5406/2.41489/0.754507/1.78803/6.696}+F{0.31546/0.102555/0.243765/0.338219}:1:0.1574,GTR{4.27751/1.40303/1.94189/4.51693/0.973065}+F{0.501739/0.298666/0.103551/0.096044}:1:0.0534} --length 10000 -seed 2024 -af fasta -t RANDOM{yh/100} -redo
+Seed:    2024 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Thu Mar 14 14:27:56 2024
+Kernel:  AVX+FMA - 1 threads (192 CPU cores detected)
+
+Generating random Yule-Harding tree...
+1 tree(s) printed to q7_sim.treefile
+[Alignment Simulator] Executing
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+ - Tree filepath: q7_sim.treefile
+ - Length of output sequences: 10000
+ - Model: MIX{GTR{0.344198/4.2793/0.289778/1.00207/1.02532}+F{0.329764/0.360188/0.0864701/0.223578}:1:0.2094,GTR{0.714813/25.3313/0.593867/0.813132/28.9033}+F{0.261572/0.366643/0.200888/0.170897}:1:0.1535,GTR{1.49119/0.0776448/1.05463/1.85688/80.8827}+F{0.322277/0.134535/0.222824/0.320364}:1:0.0867,GTR{5.65182/38.7248/2.36223/6.11001/0.913579}+F{0.175626/0.0872307/0.44894/0.288203}:1:0.1092,GTR{1.28724/2.81269/0.91585/0.814987/3.76128}+F{0.154772/0.289635/0.406589/0.149003}:1:0.2304,GTR{1.5406/2.41489/0.754507/1.78803/6.696}+F{0.31546/0.102555/0.243765/0.338219}:1:0.1574,GTR{4.27751/1.40303/1.94189/4.51693/0.973065}+F{0.501739/0.298666/0.103551/0.096044}:1:0.0534}
+ - Number of output datasets: 1
+SUBSTITUTION PROCESS
+--------------------
+
+Mixture model of substitution: MIX{GTR+FU,GTR+FU,GTR+FU,GTR+FU,GTR+FU,GTR+FU,GTR+FU}
+
+  No  Component      Rate    Weight   Parameters
+   1  GTR           1.000    0.209    GTR{0.344198,4.2793,0.289778,1.00207,1.02532}+FU{0.329764,0.360188,0.0864701,0.223578}
+   2  GTR           1.000    0.154    GTR{0.714813,25.3313,0.593867,0.813132,28.9033}+FU{0.261572,0.366643,0.200888,0.170897}
+   3  GTR           1.000    0.087    GTR{1.49119,0.0776448,1.05463,1.85688,80.8827}+FU{0.322277,0.134535,0.222824,0.320364}
+   4  GTR           1.000    0.109    GTR{5.65182,38.7248,2.36223,6.11001,0.913579}+FU{0.175626,0.0872307,0.44894,0.288203}
+   5  GTR           1.000    0.230    GTR{1.28724,2.81269,0.91585,0.814987,3.76128}+FU{0.154772,0.289635,0.406589,0.149003}
+   6  GTR           1.000    0.157    GTR{1.5406,2.41489,0.754507,1.78803,6.696}+FU{0.31546,0.102555,0.243765,0.338219}
+   7  GTR           1.000    0.053    GTR{4.27751,1.40303,1.94189,4.51693,0.973065}+FU{0.501739,0.298666,0.103551,0.096044}
+
+Model of rate heterogeneity: Uniform
+
+[Alignment Simulator] Done
+Simulation time: 0.040s
+Date and Time: Thu Mar 14 14:27:56 2024

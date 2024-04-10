@@ -1,0 +1,117 @@
+---
+title: "Untitled"
+author: "u7151703"
+date: "2024-03-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+c3_dq3_lnl <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_dq3/likelihood.xlsx")
+```
+
+
+```{r}
+lnl_data <- c3_dq3_lnl
+lnl_data <- lnl_data %>%
+  mutate(category = paste(type, optimiser, initialisation, sep = "_")) 
+```
+
+```{r}
+ggplot(lnl_data , aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  labs(y = 'absolute log likelihood')+
+  theme_minimal()
+```
+
+```{r}
+c3_dq7_lnl <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_dq7/likelihood_c3.xlsx")
+```
+
+```{r}
+lnl_data <- c3_dq7_lnl
+lnl_data <- lnl_data %>%
+  mutate(category = paste(type, optimiser, initialisation, sep = "_")) 
+```
+
+```{r}
+ggplot(lnl_data , aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  labs(y = 'absolute log likelihood')+
+  theme_minimal()
+```
+
+
+```{r}
+c5_dq3_lnl <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c5_dq3/likelihood_c3.xlsx")
+```
+
+```{r}
+lnl_data <- c5_dq3_lnl
+lnl_data <- lnl_data %>%
+  mutate(category = paste(type, optimiser, initialisation, sep = "_")) 
+```
+
+```{r}
+ggplot(lnl_data , aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  labs(y = 'absolute log likelihood')+
+  theme_minimal()
+```
+
+
+```{r}
+c3_ds3_lnl <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_ds3/likelihood.xlsx")
+```
+
+```{r}
+lnl_data <- c3_ds3_lnl
+lnl_data <- lnl_data %>%
+  mutate(category = paste(type, optimiser, initialisation, sep = "_")) 
+```
+
+```{r}
+ggplot(lnl_data , aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  labs(y = 'absolute log likelihood')+
+  theme_minimal()
+```
+
+```{r}
+c3_df3_lnl <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_df3/likelihood.xlsx")
+```
+
+```{r}
+lnl_data <- c3_df3_lnl
+lnl_data <- lnl_data %>%
+  mutate(category = paste(type, optimiser, initialisation, sep = "_")) 
+```
+
+```{r}
+ggplot(lnl_data , aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  labs(y = 'absolute log likelihood')+
+  theme_minimal()
+```
+
+```{r}
+c3_dq3_lnl <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_dq3/likelihood.xlsx")
+```
+
+```{r}
+lnl_data <- c3_dq3_lnl
+lnl_data <- lnl_data %>%
+  mutate(category = paste(type, optimiser, initialisation, sep = "_")) 
+```
+
+```{r}
+ggplot(lnl_data , aes(x = category,y = abs(lnl)))+
+  geom_jitter(width = 0.15)+
+  labs(y = 'absolute log likelihood')+
+  theme_minimal()
+```
+

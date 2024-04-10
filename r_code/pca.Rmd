@@ -1,0 +1,317 @@
+---
+title: "Untitled"
+author: "u7151703"
+date: "2024-03-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(readxl)
+options(scipen=999)
+```
+
+# underfitting
+```{r}
+c3_dq7_data <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_dq7/para.xlsx")
+```
+
+```{r}
+para_sub <- c3_dq7_data
+
+pca1 <- prcomp(para_sub[,c(14:19)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$data <- para_sub$data
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  #xlim(-1.5,0)+
+  #ylim(-1.5,1)+
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~data,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  ggtitle("data 1") + theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+# overfitting
+```{r}
+c5_dq3_data <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c5_dq3/para.xlsx")
+```
+
+```{r}
+para_sub <- c5_dq3_data
+
+pca1 <- prcomp(para_sub[,c(14:19)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$data <- para_sub$data
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  #xlim(-1.5,0)+
+  #ylim(-1.5,1)+
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~data,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  ggtitle("data 1") + theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+# c3 to q3
+```{r}
+c3_dq3_data <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_dq3/para.xlsx")
+```
+
+```{r}
+para_sub <- c3_dq3_data
+
+pca1 <- prcomp(para_sub[,c(14:19)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$name <- para_sub$name
+df1$weight <- para_sub$weight
+df1$class_ind <- para_sub$class_ind
+df1$optimiser <- para_sub$optimiser
+
+p1 = ggplot(data = df1 %>% filter(optimiser != 'bfgs'),aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  #xlim(-1.5,0)+
+  #ylim(-1.5,1)+
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~name,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+ theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+# c3 to s3
+```{r}
+c3_ds3_data <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_ds3/para.xlsx")
+```
+
+```{r}
+para_sub <- c3_ds3_data
+
+pca1 <- prcomp(para_sub[,c(14:19)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$data <- para_sub$data
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  #xlim(-1.5,0)+
+  #ylim(-1.5,1)+
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~data,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  ggtitle("data 1") + theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+# 1 to 7
+
+```{r}
+c17_dq7_data <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c1-7_dq7/para.xlsx")
+```
+
+```{r}
+para_sub <- c17_dq7_data
+
+pca1 <- prcomp(para_sub[,c(14:19)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$name <- para_sub$name
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  xlim(-12,5.0)+
+  ylim(0.5,1.5)+
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~name,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+
+```{r}
+para_sub <- c17_dq7_data[c(31:147),]
+
+pca2 <- prcomp(para_sub[,c(14:19)],center = FALSE, scale. = FALSE)
+
+df2 <- pca2$x 
+df2 <- as.data.frame(df2) 
+
+summ2 <- summary(pca2)
+xlab2 <- paste0("PC1(",round(summ2$importance[2,1]*100,2),"%)")
+ylab2 <- paste0("PC2(",round(summ2$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df2$name <- para_sub$name
+df2$weight <- para_sub$weight
+df2$class <- para_sub$class
+
+p2 = ggplot(data = df2 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  #xlim(-2.5,5.0)+
+  #ylim(0.5,1.5)+
+  labs(x = xlab2,y = ylab2,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~name,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+p2
+```
+
+
+```{r}
+c3_dq3_data <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_dq3/para.xlsx")
+```
+
+```{r}
+para_sub <- c3_dq3_data
+
+pca1 <- prcomp(para_sub[,c(14:19)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$name <- para_sub$name
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~name,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+```{r}
+c3_df3_data <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/c3_df3/para.xlsx")
+```
+
+```{r}
+para_sub <- c3_df3_data
+
+pca1 <- prcomp(para_sub[,c(16:19)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$name <- para_sub$name
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~name,ncol = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+
+

@@ -1,0 +1,32 @@
+IQ-TREE multicore version 2.2.8.mix COVID-edition for Linux 64-bit built Feb  3 2024
+Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams, Ly Trong Nhan.
+
+Host:    dayhoff.uds.anu.edu.au (AVX2, FMA3, 1007 GB RAM)
+Command: /mnt/data/dayhoff/home/u7151703/software/iqtree-2.2.8.mix-Linux/bin/iqtree2 --alisim q3_sim -m MIX{GTR{1.4242/1.3424/0.640121/1.82674/12.0262}+F{0.216535/0.354961/0.134831/0.293673}:1:0.2726,GTR{0.740905/3.58201/0.736805/0.907049/4.84784}+F{0.230388/0.182555/0.448593/0.138464}:1:0.3945,GTR{0.880124/4.48148/0.527233/1.24125/1.00011}+F{0.349383/0.26681/0.123233/0.260574}:1:0.3329} --length 10000 -seed 2024 -af fasta -t RANDOM{yh/100} -redo
+Seed:    2024 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Thu Mar 14 14:27:56 2024
+Kernel:  AVX+FMA - 1 threads (192 CPU cores detected)
+
+Generating random Yule-Harding tree...
+1 tree(s) printed to q3_sim.treefile
+[Alignment Simulator] Executing
+ - Tree filepath: q3_sim.treefile
+ - Length of output sequences: 10000
+ - Model: MIX{GTR{1.4242/1.3424/0.640121/1.82674/12.0262}+F{0.216535/0.354961/0.134831/0.293673}:1:0.2726,GTR{0.740905/3.58201/0.736805/0.907049/4.84784}+F{0.230388/0.182555/0.448593/0.138464}:1:0.3945,GTR{0.880124/4.48148/0.527233/1.24125/1.00011}+F{0.349383/0.26681/0.123233/0.260574}:1:0.3329}
+ - Number of output datasets: 1
+SUBSTITUTION PROCESS
+--------------------
+
+Mixture model of substitution: MIX{GTR+FU,GTR+FU,GTR+FU}
+
+  No  Component      Rate    Weight   Parameters
+   1  GTR           1.000    0.273    GTR{1.4242,1.3424,0.640121,1.82674,12.0262}+FU{0.216535,0.354961,0.134831,0.293673}
+   2  GTR           1.000    0.395    GTR{0.740905,3.58201,0.736805,0.907049,4.84784}+FU{0.230388,0.182555,0.448593,0.138464}
+   3  GTR           1.000    0.333    GTR{0.880124,4.48148,0.527233,1.24125,1.00011}+FU{0.349383,0.26681,0.123233,0.260574}
+
+Model of rate heterogeneity: Uniform
+
+[Alignment Simulator] Done
+Simulation time: 0.041s
+Date and Time: Thu Mar 14 14:27:56 2024

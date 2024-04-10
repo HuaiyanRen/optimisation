@@ -1,0 +1,180 @@
+IQ-TREE 2.3.1 COVID-edition built Apr  4 2024
+
+Input file name: simulation/f813_t50_sim.fa
+Type of analysis: tree reconstruction
+Random seed number: 613596
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Bui Quang Minh, Heiko A. Schmidt, Olga Chernomor, Dominik Schrempf,
+Michael D. Woodhams, Arndt von Haeseler, and Robert Lanfear (2020)
+IQ-TREE 2: New models and efficient methods for phylogenetic inference
+in the genomic era. Mol. Biol. Evol., in press.
+https://doi.org/10.1093/molbev/msaa015
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 50 sequences with 3000 nucleotide sites
+Number of constant sites: 0 (= 0% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 0 (= 0% of all sites)
+Number of parsimony informative sites: 2985
+Number of distinct site patterns: 2999
+
+SUBSTITUTION PROCESS
+--------------------
+
+Mixture model of substitution: MIX{GTR+FO,GTR+FO,GTR+FO}
+
+  No  Component      Rate    Weight   Parameters
+   1  GTR           1.0000   0.4414   GTR+FO{0.303601,0.177418,0.263395,0.255585}
+   2  GTR           1.0000   0.0686   GTR+FO{0.42574,0.301378,0.152727,0.120155}
+   3  GTR           1.0000   0.4901   GTR+FO{0.252599,0.0208882,0.537026,0.189488}
+
+Linked rate parameter R:
+
+  A-C: 1.0000
+  A-G: 1.0000
+  A-T: 1.0000
+  C-G: 1.0000
+  C-T: 1.0000
+  G-T: 1.0000
+
+
+Model of rate heterogeneity: Uniform
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -93807.5941 (s.e. 430.3494)
+Unconstrained log-likelihood (without tree): -24017.7164
+Number of free parameters (#branches + #model parameters): 97
+Akaike information criterion (AIC) score: 187809.1882
+Corrected Akaike information criterion (AICc) score: 187815.7395
+Bayesian information criterion (BIC) score: 188391.8058
+
+Total tree length (sum of branch lengths): 9.4440
+Sum of internal branch lengths: 4.8238 (51.0776% of tree length)
+
+NOTE: Tree is UNROOTED although outgroup taxon 'T2' is drawn at root
+
++--T2
+|
++----T35
+|
+|  +------------T49
++--|
+   |               +--T14
+   |            +--|
+   |            |  +--T34
+   |         +--|
+   |         |  +----T31
+   |      +--|
+   |      |  |  +--T17
+   |      |  +--|
+   |      |     +--T50
+   +------|
+          |   +--T11
+          +---|
+              |        +--T4
+              |     +--|
+              |     |  +--T36
+              |  +--|
+              |  |  |        +----T22
+              |  |  +--------|
+              |  |           |        +----T28
+              |  |           |     +--|
+              |  |           |     |  +--------T46
+              |  |           +-----|
+              |  |                 +--T29
+              +--|
+                 |     +--T3
+                 |  +--|
+                 |  |  +--T40
+                 +--|
+                    |           +--T5
+                    |     +-----|
+                    |     |     |          +--T19
+                    |     |     |       +--|
+                    |     |     |       |  +--T33
+                    |     |     |  +----|
+                    |     |     |  |    +---T25
+                    |     |     +--|
+                    |     |        |                 +--T23
+                    |     |        |          +------|
+                    |     |        |          |      +------T45
+                    |     |        +----------|
+                    |     |                   +-------T37
+                    |  +--|
+                    |  |  |     +------T12
+                    |  |  |  +--|
+                    |  |  |  |  +--T43
+                    |  |  +--|
+                    |  |     +---T42
+                    +--|
+                       |                               +---------T6
+                       |              +----------------|
+                       |              |                +--T26
+                       |        +-----|
+                       |        |     |                +--T20
+                       |        |     |  +-------------|
+                       |        |     |  |             |  +-------T41
+                       |        |     |  |             +--|
+                       |        |     |  |                +--T48
+                       |        |     +--|
+                       |        |        +--T39
+                       |     +--|
+                       |     |  |                   +--T8
+                       |     |  |  +----------------|
+                       |     |  |  |                +--T21
+                       |     |  +--|
+                       |     |     +--------T18
+                       |  +--|
+                       |  |  +--T7
+                       +--|
+                          |            +--T9
+                          |         +--|
+                          |         |  +--T30
+                          |     +---|
+                          |     |   +--T15
+                          |  +--|
+                          |  |  |       +--T10
+                          |  |  |  +----|
+                          |  |  |  |    +--T44
+                          |  |  +--|
+                          |  |     +--T16
+                          +--|
+                             |  +--T1
+                             +--|
+                                |     +--T13
+                                |  +--|
+                                |  |  |     +--T32
+                                |  |  |  +--|
+                                |  |  |  |  +--T47
+                                |  |  +--|
+                                |  |     +--T38
+                                +--|
+                                   |  +----T24
+                                   +--|
+                                      +--T27
+
+Tree in newick format:
+
+(T2:0.0257456214,T35:0.1627855284,(T49:0.3733649918,((((T14:0.0676011289,T34:0.0776178083):0.0301084490,T31:0.1448893451):0.0052191883,(T17:0.0248835685,T50:0.0934089779):0.0690857360):0.0441968847,(T11:0.0093865113,(((T4:0.0182384748,T36:0.0243334895):0.0369786530,(T22:0.1408824465,((T28:0.1566442772,T46:0.2471527622):0.0297065713,T29:0.0029336114):0.1657872614):0.2614595689):0.0217059225,((T3:0.0665256596,T40:0.0439066773):0.0581605741,(((T5:0.0417085055,(((T19:0.0176322954,T33:0.0357595163):0.0141779450,T25:0.1358299579):0.1391233394,((T23:0.0204637675,T45:0.2121656931):0.1964096855,T37:0.2348824696):0.3142050146):0.0863498758):0.1858329997,((T12:0.1954755252,T43:0.0107511510):0.0027110995,T42:0.1139988789):0.0597438020):0.0276668654,(((((T6:0.2773450811,T26:0.0529846343):0.4663014932,((T20:0.0545265484,(T41:0.2395746491,T48:0.0965146658):0.0342944503):0.4018203367,T39:0.1081460667):0.1067914250):0.1862940929,((T8:0.0035724027,T21:0.0752126065):0.4828373015,T18:0.2573660966):0.0237575206):0.0107762581,T7:0.0781367248):0.0339719666,((((T9:0.0962292877,T30:0.1057277910):0.0546816510,T15:0.0676172187):0.1209107338,((T10:0.0211307383,T44:0.0526805486):0.1520151289,T16:0.0221618394):0.0615666217):0.0902040796,(T1:0.0342581841,((T13:0.0535755870,((T32:0.0135727468,T47:0.0134791960):0.0186943065,T38:0.0144514218):0.0810564720):0.0566350283,(T24:0.1376707921,T27:0.0453322145):0.0348450802):0.0221752624):0.0090022698):0.0072001971):0.0854564496):0.0555578312):0.0789328336):0.0581360039):0.1224439556):0.2137837901):0.0050039457);
+
+ALISIM COMMAND
+--------------
+Currently, we only support exporting AliSim commands automatically from the analysis for common models of DNA, Protein, Binary, and Morphological data. To simulate data from other models (mixture, lie-markov, etc), please refer to the User Manual of AliSim. Thanks!
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Fri Apr  5 10:32:33 2024
+Total CPU time used: 92.11 seconds (0h:1m:32s)
+Total wall-clock time used: 92.5069 seconds (0h:1m:32s)
+

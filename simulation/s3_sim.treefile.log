@@ -1,0 +1,35 @@
+IQ-TREE multicore version 2.2.8.mix COVID-edition for Linux 64-bit built Feb  3 2024
+Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams, Ly Trong Nhan.
+
+Host:    dayhoff.uds.anu.edu.au (AVX2, FMA3, 1007 GB RAM)
+Command: /mnt/data/dayhoff/home/u7151703/software/iqtree-2.2.8.mix-Linux/bin/iqtree2 --alisim s3_sim -m MIX{GTR{1.35617/4.93179/0.96163/1.28342/1.44803}+F{0.276128/0.243538/0.254079/0.226256}:1:0.4148,GTR{1.07214/31.4499/0.819383/1.03543/51.0513}+F{0.276128/0.243538/0.254079/0.226256}:1:0.2224,GTR{1.26838/0.919132/0.70004/1.19463/5.28579}+F{0.276128/0.243538/0.254079/0.226256}:1:0.3629} --length 10000 -seed 2024 -af fasta -t RANDOM{yh/100} -redo
+Seed:    2024 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Thu Mar 14 14:55:17 2024
+Kernel:  AVX+FMA - 1 threads (192 CPU cores detected)
+
+Generating random Yule-Harding tree...
+1 tree(s) printed to s3_sim.treefile
+[Alignment Simulator] Executing
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+ - Tree filepath: s3_sim.treefile
+ - Length of output sequences: 10000
+ - Model: MIX{GTR{1.35617/4.93179/0.96163/1.28342/1.44803}+F{0.276128/0.243538/0.254079/0.226256}:1:0.4148,GTR{1.07214/31.4499/0.819383/1.03543/51.0513}+F{0.276128/0.243538/0.254079/0.226256}:1:0.2224,GTR{1.26838/0.919132/0.70004/1.19463/5.28579}+F{0.276128/0.243538/0.254079/0.226256}:1:0.3629}
+ - Number of output datasets: 1
+SUBSTITUTION PROCESS
+--------------------
+
+Mixture model of substitution: MIX{GTR+FU,GTR+FU,GTR+FU}
+
+  No  Component      Rate    Weight   Parameters
+   1  GTR           1.000    0.415    GTR{1.35617,4.93179,0.96163,1.28342,1.44803}+FU{0.276128,0.243538,0.254079,0.226256}
+   2  GTR           1.000    0.222    GTR{1.07214,31.4499,0.819383,1.03543,51.0513}+FU{0.276128,0.243538,0.254079,0.226256}
+   3  GTR           1.000    0.363    GTR{1.26838,0.919132,0.70004,1.19463,5.28579}+FU{0.276128,0.243538,0.254079,0.226256}
+
+Model of rate heterogeneity: Uniform
+
+[Alignment Simulator] Done
+Simulation time: 0.045s
+Date and Time: Thu Mar 14 14:55:17 2024

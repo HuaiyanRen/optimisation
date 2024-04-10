@@ -1,0 +1,358 @@
+---
+title: "Untitled"
+author: "u7151703"
+date: "2024-04-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+#t25
+
+```{r}
+c3t25 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/f81c3t25/sum_result.xlsx")
+View(c3t25)
+```
+
+
+```{r}
+lnl_data <- c3t25
+lnl_data <- lnl_data %>%
+  mutate(method_rep = paste(method, rep, sep = "_rep")) 
+```
+
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+times <- lnl_data %>%
+  group_by(method_rep) %>%
+  summarize(runtime = sum(time))
+
+times <- times %>%
+  separate(method_rep, into = c("method", "rep"), sep = "_")
+
+ggplot(times, aes(x = as.character(method), y = runtime, color = as.character(method)))+
+  geom_boxplot()+
+  theme_bw()
+```
+
+
+#t50
+
+```{r}
+c3t50 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/f81c3t50/sum_result.xlsx")
+View(c3t50)
+```
+
+
+```{r}
+lnl_data <- c3t50
+lnl_data <- lnl_data %>%
+  mutate(method_rep = paste(method, rep, sep = "_rep")) 
+```
+
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+times <- lnl_data %>%
+  group_by(method_rep) %>%
+  summarize(runtime = sum(time))
+
+times <- times %>%
+  separate(method_rep, into = c("method", "rep"), sep = "_")
+
+ggplot(times, aes(x = as.character(method), y = runtime, color = as.character(method)))+
+  geom_boxplot()+
+  theme_bw()
+```
+
+#t100
+
+```{r}
+c3t100 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/f81c3t100/sum_result.xlsx")
+View(c3t100)
+```
+
+
+```{r}
+lnl_data <- c3t100
+lnl_data <- lnl_data %>%
+  mutate(method_rep = paste(method, rep, sep = "_rep")) 
+```
+
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  ylim(-200700,-200650)+
+  xlim(2,4)+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+times <- lnl_data %>%
+  group_by(method_rep) %>%
+  summarize(runtime = sum(time))
+
+times <- times %>%
+  separate(method_rep, into = c("method", "rep"), sep = "_")
+
+ggplot(times, aes(x = as.character(method), y = runtime, color = as.character(method)))+
+  geom_boxplot()+
+  theme_bw()
+```
+
+
+# para
+
+
+```{r}
+para_sub <- f81c3_para
+
+pca1 <- prcomp(para_sub[,c(10:13)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$data <- para_sub$data
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~data,ncol = 2)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+
+```{r}
+p2 = ggplot(data = df1 %>% filter(f81c3_para$data != 't25') ,aes(x = PC1,y = PC2, color = data))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+p2
+```
+
+# c6
+
+#t50
+
+```{r}
+c6t50 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/f81c6t50/sum_result.xlsx")
+View(c6t50)
+```
+
+
+```{r}
+lnl_data <- c6t50
+lnl_data <- lnl_data %>%
+  mutate(method_rep = paste(method, rep, sep = "_rep")) 
+```
+
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  ylim(-185100,-184900)+
+  xlim(4,7)+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+times <- lnl_data %>%
+  group_by(method_rep) %>%
+  summarize(runtime = sum(time))
+
+times <- times %>%
+  separate(method_rep, into = c("method", "rep"), sep = "_")
+
+ggplot(times, aes(x = as.character(method), y = runtime, color = as.character(method)))+
+  geom_boxplot()+
+  theme_bw()
+```
+
+
+
+#t100
+
+```{r}
+c6t100 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/f81c6t100/sum_result.xlsx")
+View(c6t100)
+```
+
+
+```{r}
+lnl_data <- c6t100
+lnl_data <- lnl_data %>%
+  mutate(method_rep = paste(method, rep, sep = "_rep")) 
+```
+
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  ylim(-395600,-395500)+
+  xlim(5,7)+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+times <- lnl_data %>%
+  group_by(method_rep) %>%
+  summarize(runtime = sum(time))
+
+times <- times %>%
+  separate(method_rep, into = c("method", "rep"), sep = "_")
+
+ggplot(times, aes(x = as.character(method), y = runtime, color = as.character(method)))+
+  geom_boxplot()+
+  theme_bw()
+```
+
+# para
+
+
+```{r}
+para_sub <- f81c6para
+
+pca1 <- prcomp(para_sub[,c(10:13)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$data <- para_sub$data
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~data,ncol = 3)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
+
+#t100 rep1
+
+```{r}
+c6t100 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/f81c6t100/sum_result_r1.xlsx")
+View(c6t100)
+```
+
+
+```{r}
+lnl_data <- c6t100
+lnl_data <- lnl_data %>%
+  mutate(method_rep = paste(method, rep, sep = "_rep")) 
+```
+
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  ylim(-366025,-366015)+
+  xlim(5,7)+
+  geom_line(aes(group = method_rep))
+```
+
+
+#t100 rep2
+
+```{r}
+c6t100 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/f81c6t100/sum_result_r2.xlsx")
+View(c6t100)
+```
+
+
+```{r}
+lnl_data <- c6t100
+lnl_data <- lnl_data %>%
+  mutate(method_rep = paste(method, rep, sep = "_rep")) 
+```
+
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  geom_line(aes(group = method_rep))
+```
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  ylim(-335330,-335290)+
+  xlim(4,7)+
+  geom_line(aes(group = method_rep))
+```
+
+
