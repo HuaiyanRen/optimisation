@@ -4,9 +4,9 @@ import os
 
 random.seed(2024)
 
-xlsx_file = 'f81_rep.xlsx'
+xlsx_file = 'f81c3_rep.xlsx'
 rep = 5
-classes = 6
+classes = 3
 
 
 def gen_u(n):
@@ -135,7 +135,7 @@ for r in range(rep):
     
     df = pd.concat([df, df1], ignore_index=True)
     
-    file_name = 'f81_rep' + str(r+1) +'_sim'
+    file_name = 'f81c3_rep' + str(r+1) +'_sim'
     model_cmd = ' -m "MIX{'
     
     for i in range(classes):
