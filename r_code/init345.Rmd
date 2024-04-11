@@ -68,3 +68,12 @@ ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
   theme_bw()
 ```
 
+```{r}
+lrt_results <- lnl_data %>%
+  group_by(rep) %>%
+  summarize(lrt_detail = paste(lrt, collapse = "_"))
+
+table(lrt_results)
+```
+
+
