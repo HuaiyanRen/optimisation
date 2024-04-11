@@ -7,10 +7,10 @@ import csv
 def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
     class_num = int(class_num)
     method = int(method)
-    
+
     if treefile != '':
-        treefile == ' -te ' + treefile
-    
+        treefile = ' -te ' + treefile
+
     if pre == 'default':
         pre = file_name.split('/')[-1].split('.')[0] + '_i' + str(method)
     if not os.path.isfile(pre):
@@ -48,7 +48,7 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
                         cmd = cmd + 'GTR{1/1/1/1/1}+FO,'
                     else:
                         cmd = cmd + 'GTR{1/1/1/1/1}+FO}"'
-                cmd = cmd + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -init_nucl_freq ' + str(method)
+                cmd = cmd + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -init_nucl_freq ' + str(method) + treefile
             os.system(cmd)
             
             iq_file = pre + '/c'+str(c)+'.iqtree'
@@ -139,7 +139,7 @@ parser.add_argument('--nt', '-nt', help='',
                     default = '1')
 parser.add_argument('--pre', '-pre', help='',
                     default = 'default')
-parser.add_argument('--treefile', '-nt', help='',
+parser.add_argument('--treefile', '-te', help='',
                     default = '')
 args = parser.parse_args()
 
