@@ -355,4 +355,3 @@ ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
   geom_line(aes(group = method_rep))
 ```
 
-
