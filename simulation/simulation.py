@@ -6,12 +6,12 @@ modelparas = pd.read_excel('f81.xlsx')
 
 seed_num = 2024
 
-class_num = [6]
-taxa_num =[10,25]
+class_num = [3,6]
+taxa_num =[10,25,50,100]
 
 for c_num in class_num:
     for t_num in taxa_num:
-        file_name = 'f81'+ str(c_num) +'_t' + str(t_num) +'_sim'
+        file_name = 'f81'+ str(c_num) +'_t' + str(t_num) +'_5k_sim'
         model_cmd = ' -m "MIX{'
         
         for i in range(modelparas.shape[0]):
@@ -21,6 +21,6 @@ for c_num in class_num:
                 
         model_cmd = model_cmd[:-1] + '}"' 
     
-        alisim_cmd = '/mnt/data/dayhoff/home/u7151703/software/iqtree-2.2.8.mix-Linux/bin/iqtree2 --alisim ' + file_name + model_cmd + ' --length ' + str(1000*c_num) + ' -seed ' + str(seed_num) + ' -af fasta -t RANDOM{yh/' +str(t_num)+ '} -redo'
+        alisim_cmd = '/mnt/data/dayhoff/home/u7151703/software/iqtree-2.2.8.mix-Linux/bin/iqtree2 --alisim ' + file_name + model_cmd + ' --length ' + str(5000*c_num) + ' -seed ' + str(seed_num) + ' -af fasta -t RANDOM{yh/' +str(t_num)+ '} -redo'
         print(alisim_cmd)
         os.system(alisim_cmd)

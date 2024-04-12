@@ -1,0 +1,32 @@
+IQ-TREE multicore version 2.2.8.mix COVID-edition for Linux 64-bit built Feb  3 2024
+Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams, Ly Trong Nhan.
+
+Host:    dayhoff.uds.anu.edu.au (AVX2, FMA3, 1007 GB RAM)
+Command: /mnt/data/dayhoff/home/u7151703/software/iqtree-2.2.8.mix-Linux/bin/iqtree2 --alisim f813_t100_5k_sim -m MIX{GTR{1/1/1/1/1}+F{0.303751358391357/0.166339360039713/0.258173572992136/0.271735708576792}:1:0.41587210094429,GTR{1/1/1/1/1}+F{0.410088589468725/0.306525804112916/0.170683875418372/0.112701730999984}:1:0.0824292810771095,GTR{1/1/1/1/1}+F{0.245166649193673/0.0200544886069942/0.547360488787754/0.187418373411578}:1:0.5016986179786} --length 15000 -seed 2024 -af fasta -t RANDOM{yh/100} -redo
+Seed:    2024 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Fri Apr 12 10:06:40 2024
+Kernel:  AVX+FMA - 1 threads (192 CPU cores detected)
+
+Generating random Yule-Harding tree...
+1 tree(s) printed to f813_t100_5k_sim.treefile
+[Alignment Simulator] Executing
+ - Tree filepath: f813_t100_5k_sim.treefile
+ - Length of output sequences: 15000
+ - Model: MIX{GTR{1/1/1/1/1}+F{0.303751358391357/0.166339360039713/0.258173572992136/0.271735708576792}:1:0.41587210094429,GTR{1/1/1/1/1}+F{0.410088589468725/0.306525804112916/0.170683875418372/0.112701730999984}:1:0.0824292810771095,GTR{1/1/1/1/1}+F{0.245166649193673/0.0200544886069942/0.547360488787754/0.187418373411578}:1:0.5016986179786}
+ - Number of output datasets: 1
+SUBSTITUTION PROCESS
+--------------------
+
+Mixture model of substitution: MIX{GTR+FU,GTR+FU,GTR+FU}
+
+  No  Component      Rate    Weight   Parameters
+   1  GTR           1.000    0.416    GTR{1,1,1,1,1}+FU{0.303751,0.166339,0.258174,0.271736}
+   2  GTR           1.000    0.082    GTR{1,1,1,1,1}+FU{0.410089,0.306526,0.170684,0.112702}
+   3  GTR           1.000    0.502    GTR{1,1,1,1,1}+FU{0.245167,0.0200545,0.54736,0.187418}
+
+Model of rate heterogeneity: Uniform
+
+[Alignment Simulator] Done
+Simulation time: 0.081s
+Date and Time: Fri Apr 12 10:06:40 2024
