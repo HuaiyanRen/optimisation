@@ -254,6 +254,69 @@ table(lrt_results)
 ```
 
 
+
+# c6 t10
+
+```{r}
+c6t10r05k <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t10r05k/sum_result.csv", show_col_types = FALSE)
+View(c6t10r05k)
+lnl_data <- c6t10r05k
+```
+
+
+```{r}
+ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  geom_line(aes(group = rep))+
+  theme_bw()
+```
+
+```{r}
+ggplot(lnl_data %>% filter(method == 5), aes(x = class, y = lnl, color = as.character(method)))+
+  geom_point()+
+  xlim(3,7)+
+  ylim(-168990,-168960)+
+  geom_line(aes(group = rep))+
+  theme_bw()
+```
+
+```{r}
+times <- lnl_data %>%
+  group_by(rep) %>%
+  summarize(runtime = sum(time)) %>%
+  left_join(lnl_data %>%
+              distinct(rep, method),
+            by = "rep") %>%
+  select(rep, runtime, method)
+
+temptime <- lnl_data %>% filter(method < 3) %>% filter(class == 6) %>%
+  mutate(runtime = time) %>%
+  select(rep, runtime, method) %>%
+  mutate(method = case_when(
+    method == 0 ~ "0_c3",
+    method == 1 ~ "1_c3",
+    method == 2 ~ "2_c3"
+  ))
+
+times <- rbind(times, temptime)
+```
+
+```{r}
+ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
+  geom_boxplot()+
+  labs(y = 'runtime(s)')+
+  theme_bw()
+```
+
+```{r}
+lrt_results <- lnl_data %>%
+  group_by(rep) %>%
+  summarize(lrt_detail = paste(lrt, collapse = "_"))
+
+table(lrt_results)
+```
+
+
 #draft
 
 ```{r}
