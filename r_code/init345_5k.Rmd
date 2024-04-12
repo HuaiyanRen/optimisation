@@ -223,10 +223,11 @@ times <- lnl_data %>%
             by = "rep") %>%
   select(rep, runtime, method)
 
-temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 3) %>%
+temptime <- lnl_data %>% filter(method < 3) %>% filter(class == 3) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
+    method == 0 ~ "0_c3",
     method == 1 ~ "1_c3",
     method == 2 ~ "2_c3"
   ))

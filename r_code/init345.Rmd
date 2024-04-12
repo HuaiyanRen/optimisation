@@ -294,7 +294,7 @@ times <- lnl_data %>%
             by = "rep") %>%
   select(rep, runtime, method)
 
-temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 3) %>%
+temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
@@ -354,7 +354,7 @@ times <- lnl_data %>%
             by = "rep") %>%
   select(rep, runtime, method)
 
-temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 3) %>%
+temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
@@ -414,7 +414,7 @@ times <- lnl_data %>%
             by = "rep") %>%
   select(rep, runtime, method)
 
-temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 3) %>%
+temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
@@ -474,7 +474,7 @@ times <- lnl_data %>%
             by = "rep") %>%
   select(rep, runtime, method)
 
-temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 3) %>%
+temptime <- lnl_data %>% filter(method == 1 | method == 2) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
