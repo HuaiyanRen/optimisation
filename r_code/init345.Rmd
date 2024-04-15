@@ -95,9 +95,9 @@ ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(2,4)+
+ggplot(lnl_data , aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_jitter(width = 0.25)+
+  #xlim(2,4)+
   ylim(-200900,-200600)+
   geom_line(aes(group = rep))+
   theme_bw()
@@ -157,9 +157,9 @@ ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(2,4)+
+ggplot(lnl_data %>% filter(class > 1), aes(x =  as.character(class), y = lnl, color = as.character(method)))+
+  geom_jitter(width = 0.25)+
+  #xlim(2,4)+
   ylim(-47710,-47700)+
   geom_line(aes(group = rep))+
   theme_bw()
@@ -221,7 +221,7 @@ ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
 ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
   geom_point()+
   xlim(2,4)+
-  ylim(-47710,-47700)+
+  ylim(-16780,-16770)+
   geom_line(aes(group = rep))+
   theme_bw()
 ```
