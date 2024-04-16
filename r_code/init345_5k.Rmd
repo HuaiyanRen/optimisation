@@ -259,7 +259,42 @@ lrt_results <- lnl_data %>%
 table(lrt_results)
 ```
 
+# PCA
 
+```{r}
+f81c35k_para <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/data/pca_candi/c35k/para.xlsx")
+```
+
+```{r}
+para_sub <- f81c35k_para
+
+pca1 <- prcomp(para_sub[,c(10:13)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$name <- para_sub$name
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+
+p1 = ggplot(df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~name,ncol = 3)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+p1
+```
 
 # c6 t10
 
@@ -278,7 +313,7 @@ ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
 ```
 
 ```{r}
-ggplot(lnl_data %>% filter(method == 5), aes(x = class, y = lnl, color = as.character(method)))+
+ggplot(lnl_data %>% filter(method == 2 | method == 3), aes(x = class, y = lnl, color = as.character(method)))+
   geom_point()+
   xlim(3,7)+
   ylim(-168990,-168960)+
@@ -400,7 +435,7 @@ ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
 ```
 
 ```{r}
-ggplot(lnl_data %>% filter(method == 2 | method == 4), aes(x = class, y = lnl, color = as.character(method)))+
+ggplot(lnl_data %>% filter(method == 0 | method == 2 | method == 4), aes(x = class, y = lnl, color = as.character(method)))+
   geom_point()+
   xlim(5,7)+
   ylim(-923560,-923510)+
