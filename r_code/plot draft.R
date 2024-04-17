@@ -240,13 +240,13 @@ times <- c6t10r0 %>%
               distinct(rep, method),
             by = "rep") %>%
   select(rep, runtime, method)
-temptime <- c6t10r0 %>% filter(method < 3) %>% filter(class == 3) %>%
+temptime <- c6t10r0 %>% filter(method < 3) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
-    method == 0 ~ "0_c3",
-    method == 1 ~ "1_c3",
-    method == 2 ~ "2_c3"
+    method == 0 ~ "0_c6",
+    method == 1 ~ "1_c6",
+    method == 2 ~ "2_c6"
   ))
 times_10 <- rbind(times, temptime)
 p1 <- ggplot(times_10, aes(x = as.character(method), y = runtime, color = method))+
@@ -264,13 +264,13 @@ times <- c6t25r0 %>%
               distinct(rep, method),
             by = "rep") %>%
   select(rep, runtime, method)
-temptime <- c6t25r0 %>% filter(method < 3) %>% filter(class == 3) %>%
+temptime <- c6t25r0 %>% filter(method < 3) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
-    method == 0 ~ "0_c3",
-    method == 1 ~ "1_c3",
-    method == 2 ~ "2_c3"
+    method == 0 ~ "0_c6",
+    method == 1 ~ "1_c6",
+    method == 2 ~ "2_c6"
   ))
 times_25 <- rbind(times, temptime)
 p2 <- ggplot(times_25, aes(x = as.character(method), y = runtime, color = method))+
@@ -288,13 +288,13 @@ times <- c6t50r0 %>%
               distinct(rep, method),
             by = "rep") %>%
   select(rep, runtime, method)
-temptime <- c6t50r0 %>% filter(method < 3) %>% filter(class == 3) %>%
+temptime <- c6t50r0 %>% filter(method < 3) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
-    method == 0 ~ "0_c3",
-    method == 1 ~ "1_c3",
-    method == 2 ~ "2_c3"
+    method == 0 ~ "0_c6",
+    method == 1 ~ "1_c6",
+    method == 2 ~ "2_c6"
   ))
 times_50 <- rbind(times, temptime)
 p3 <- ggplot(times_50, aes(x = as.character(method), y = runtime, color = method))+
@@ -312,13 +312,13 @@ times <- c6t100r0 %>%
               distinct(rep, method),
             by = "rep") %>%
   select(rep, runtime, method)
-temptime <- c6t100r0 %>% filter(method < 3) %>% filter(class == 3) %>%
+temptime <- c6t100r0 %>% filter(method < 3) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
-    method == 0 ~ "0_c3",
-    method == 1 ~ "1_c3",
-    method == 2 ~ "2_c3"
+    method == 0 ~ "0_c6",
+    method == 1 ~ "1_c6",
+    method == 2 ~ "2_c6"
   ))
 times_100 <- rbind(times, temptime)
 p4 <- ggplot(times_100, aes(x = as.character(method), y = runtime, color = method))+
@@ -583,13 +583,13 @@ times <- c6t10r05k %>%
               distinct(rep, method),
             by = "rep") %>%
   select(rep, runtime, method)
-temptime <- c6t10r05k %>% filter(method < 3) %>% filter(class == 3) %>%
+temptime <- c6t10r05k %>% filter(method < 3) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
-    method == 0 ~ "0_c3",
-    method == 1 ~ "1_c3",
-    method == 2 ~ "2_c3"
+    method == 0 ~ "0_c6",
+    method == 1 ~ "1_c6",
+    method == 2 ~ "2_c6"
   ))
 times_10 <- rbind(times, temptime)
 p1 <- ggplot(times_10, aes(x = as.character(method), y = runtime, color = method))+
@@ -607,13 +607,13 @@ times <- c6t25r05k %>%
               distinct(rep, method),
             by = "rep") %>%
   select(rep, runtime, method)
-temptime <- c6t25r05k %>% filter(method < 3) %>% filter(class == 3) %>%
+temptime <- c6t25r05k %>% filter(method < 3) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
-    method == 0 ~ "0_c3",
-    method == 1 ~ "1_c3",
-    method == 2 ~ "2_c3"
+    method == 0 ~ "0_c6",
+    method == 1 ~ "1_c6",
+    method == 2 ~ "2_c6"
   ))
 times_25 <- rbind(times, temptime)
 p2 <- ggplot(times_25, aes(x = as.character(method), y = runtime, color = method))+
@@ -631,13 +631,13 @@ times <- c6t50r05k %>%
               distinct(rep, method),
             by = "rep") %>%
   select(rep, runtime, method)
-temptime <- c6t50r05k %>% filter(method < 3) %>% filter(class == 3) %>%
+temptime <- c6t50r05k %>% filter(method < 3) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
-    method == 0 ~ "0_c3",
-    method == 1 ~ "1_c3",
-    method == 2 ~ "2_c3"
+    method == 0 ~ "0_c6",
+    method == 1 ~ "1_c6",
+    method == 2 ~ "2_c6"
   ))
 times_50 <- rbind(times, temptime)
 p3 <- ggplot(times_50, aes(x = as.character(method), y = runtime, color = method))+
@@ -655,13 +655,13 @@ times <- c6t100r05k %>%
               distinct(rep, method),
             by = "rep") %>%
   select(rep, runtime, method)
-temptime <- c6t100r05k %>% filter(method < 3) %>% filter(class == 3) %>%
+temptime <- c6t100r05k %>% filter(method < 3) %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method) %>%
   mutate(method = case_when(
-    method == 0 ~ "0_c3",
-    method == 1 ~ "1_c3",
-    method == 2 ~ "2_c3"
+    method == 0 ~ "0_c6",
+    method == 1 ~ "1_c6",
+    method == 2 ~ "2_c6"
   ))
 times_100 <- rbind(times, temptime)
 p4 <- ggplot(times_100, aes(x = as.character(method), y = runtime, color = method))+
@@ -673,3 +673,45 @@ p4 <- ggplot(times_100, aes(x = as.character(method), y = runtime, color = metho
   theme(plot.title = element_text(hjust = 0.5))
 
 (p1 & p2) / (p3 & p4) + plot_layout(guides = "collect")
+
+# HDR plot
+a <- c6t50r0 %>% filter(class > 4) %>% filter( method == 1 | method == 5)
+a <- a %>% mutate(dataset = '50 taxa, 6k sites')
+b <- c6t100r0 %>% filter(class > 4) %>% filter( method == 1 | method == 5)
+b <- b %>% mutate(dataset = '100 taxa, 6k sites')
+c <- c6t50r05k %>% filter(class > 4) %>% filter( method == 1 | method == 5)
+c <- c %>% mutate(dataset = '50 taxa, 30k sites')
+d <- c6t100r05k %>% filter(class > 4) %>% filter( method == 1 | method == 5)
+d <- d %>% mutate(dataset = '100 taxa, 30k sites')
+
+plot_data <- rbind(a,b,c,d)
+plot_data <- plot_data %>% mutate(method = case_when(
+  method == 1 ~ 'method 1',
+  method == 5 ~ 'method new'
+))
+
+ggplot(plot_data, aes(x =  as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
+  theme_bw()+
+  labs(x = 'number of classes', y = 'log-likelihood', color = 'initialising method')+
+  facet_wrap(~dataset,nrow = 2,scale = "free_y")
+
+times <- plot_data %>%
+  group_by(rep) %>%
+  summarize(runtime = sum(time)) %>%
+  left_join(plot_data %>%
+              distinct(rep, method, dataset),
+            by = "rep") %>%
+  select(rep, runtime, method, dataset)
+temptime <- plot_data %>% filter(method == 'method 1') %>% filter(class == 6) %>%
+  mutate(runtime = time) %>%
+  select(rep, runtime, method, dataset) %>%
+  mutate(method = 'method 1, c6 only')
+times <- rbind(times, temptime)
+
+ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
+  geom_boxplot()+
+  scale_y_log10()+
+  labs(y = 'runtime(s)', x = 'initialising method', color = 'initialising method')+
+  theme_bw()+
+  facet_wrap(~dataset,nrow = 2,scale = "free_y")
