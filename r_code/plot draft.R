@@ -693,7 +693,7 @@ plot_data <- plot_data %>% mutate(method = case_when(
 ggplot(plot_data, aes(x =  as.character(class), y = lnl, color = as.character(method)))+
   geom_boxplot()+
   theme_bw()+
-  labs(x = 'number of classes', y = 'log-likelihood', color = 'initialising method')+
+  labs(x = 'number of classes', y = 'log-likelihood', color = 'initialisation method')+
   facet_wrap(~dataset,nrow = 2,scale = "free_y")
 
 times <- plot_data %>%
@@ -712,6 +712,6 @@ times <- rbind(times, temptime)
 ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
   geom_boxplot()+
   scale_y_log10()+
-  labs(y = 'runtime(s)', x = 'initialising method', color = 'initialising method')+
+  labs(y = 'runtime(s)', x = 'initialisation method', color = 'initialisation method')+
   theme_bw()+
   facet_wrap(~dataset,nrow = 2,scale = "free_y")
