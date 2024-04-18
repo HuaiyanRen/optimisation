@@ -11,10 +11,14 @@ d <- c3t100r0
 d <- d %>% mutate(dataset = '100 taxa, 3k sites')
 
 plot_data <- rbind(a,b,c,d)
-plot_data$dataset <- factor(plot_data$dataset, levels = c('10 taxa, 3k sites', '25 taxa, 3k sites', '50 taxa, 3k sites', '100 taxa, 3k sites'))
+plot_data$dataset <- factor(plot_data$dataset, levels = c('10 taxa, 3k sites', '25 taxa, 3k sites', 
+                                                          '50 taxa, 3k sites', '100 taxa, 3k sites'))
 
-linedata <- data.frame(dataset = c('50 taxa, 6k sites', '100 taxa, 6k sites', '50 taxa, 30k sites', '100 taxa, 30k sites'), 
-                       lnl = c(-184975.6612, -395528.5682, -923519.2429, -1970620.4804))
+linedata <- data.frame(dataset = c('10 taxa, 3k sites', '25 taxa, 3k sites', 
+                                   '50 taxa, 3k sites', '100 taxa, 3k sites'), 
+                       lnl = c(-16772.5656, -47700.5921, -93807.7146, -200683.6429))
+linedata$dataset <- factor(linedata$dataset, levels = c('10 taxa, 3k sites', '25 taxa, 3k sites', 
+                                                          '50 taxa, 3k sites', '100 taxa, 3k sites'))
 
 ggplot(plot_data, aes(x = as.character(class), y = lnl)) +
   geom_boxplot(aes(color = as.character(method))) +
@@ -30,7 +34,9 @@ ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class)
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 2, scale = "free_y")
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+
+  geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+
 
 # c3 time
 
@@ -238,8 +244,8 @@ d <- d %>% mutate(dataset = '100 taxa, 30k sites')
 
 plot_data <- rbind(a,b,c,d)
 plot_data <- plot_data %>% mutate(method = case_when(
-  method == 1 ~ 'method 1',
-  method == 5 ~ 'method new'
+  method == 1 ~ 'old method',
+  method == 5 ~ 'new method'
 ))
 plot_data$dataset <- factor(plot_data$dataset,levels = c('50 taxa, 6k sites', '100 taxa, 6k sites', '50 taxa, 30k sites', '100 taxa, 30k sites'))
 
@@ -263,10 +269,10 @@ times <- plot_data %>%
               distinct(rep, method, dataset),
             by = "rep") %>%
   select(rep, runtime, method, dataset)
-temptime <- plot_data %>% filter(method == 'method 1') %>% filter(class == 6) %>%
+temptime <- plot_data %>% filter(method == 'old method') %>% filter(class == 6) %>%
   mutate(runtime = time) %>%
   select(rep, runtime, method, dataset) %>%
-  mutate(method = 'method 1, c6 only')
+  mutate(method = 'old method, c6 only')
 times <- rbind(times, temptime)
 
 ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
