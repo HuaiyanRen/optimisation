@@ -82,15 +82,19 @@ plot_data$dataset <- factor(plot_data$dataset,
                             levels = c('10 taxa, 6k sites', '25 taxa, 6k sites', 
                                        '50 taxa, 6k sites', '100 taxa, 6k sites'))
 
-linedata <- data.frame(dataset = c('50 taxa, 6k sites', '100 taxa, 6k sites', '50 taxa, 30k sites', '100 taxa, 30k sites'), 
-                       lnl = c(-184975.6612, -395528.5682, -923519.2429, -1970620.4804))
+linedata <- data.frame(dataset = c('10 taxa, 6k sites', '25 taxa, 6k sites', 
+                                   '50 taxa, 6k sites', '100 taxa, 6k sites'), 
+                       lnl = c(-33559.4087, -94754.1193, -184975.6612, -395528.5682))
+linedata$dataset <- factor(linedata$dataset, 
+                            levels = c('10 taxa, 6k sites', '25 taxa, 6k sites', 
+                                       '50 taxa, 6k sites', '100 taxa, 6k sites'))
 
 ggplot(plot_data %>% filter(method > 0 & class > 4), aes(x = as.character(class), y = lnl)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 2, scale = "free_y") 
-#geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+ 
+  geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 #geom_text(x = '5', y = -184976, label = 'control group', color = 'darkblue', family = 'serif',data = subset(plot_data, dataset == '50 taxa, 6k sites'))
 
 # c6 time
@@ -137,15 +141,19 @@ plot_data$dataset <- factor(plot_data$dataset,
                             levels = c('10 taxa, 15k sites', '25 taxa, 15k sites',
                                        '50 taxa, 15k sites', '100 taxa, 15k sites'))
 
-linedata <- data.frame(dataset = c('50 taxa, 6k sites', '100 taxa, 6k sites', '50 taxa, 30k sites', '100 taxa, 30k sites'), 
-                       lnl = c(-184975.6612, -395528.5682, -923519.2429, -1970620.4804))
+linedata <- data.frame(dataset = c('10 taxa, 15k sites', '25 taxa, 15k sites',
+                                   '50 taxa, 15k sites', '100 taxa, 15k sites'), 
+                       lnl = c(-83242.9907, -238152.0907, -465310.2191, -998319.9531))
+linedata$dataset <- factor(linedata$dataset, 
+                            levels = c('10 taxa, 15k sites', '25 taxa, 15k sites',
+                                       '50 taxa, 15k sites', '100 taxa, 15k sites'))
 
 ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class), y = lnl)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 2, scale = "free_y") 
-#geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+
+  geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 #geom_text(x = '5', y = -184976, label = 'control group', color = 'darkblue', family = 'serif',data = subset(plot_data, dataset == '50 taxa, 6k sites'))
 
 
@@ -192,15 +200,19 @@ plot_data$dataset <- factor(plot_data$dataset,
                             levels = c('10 taxa, 30k sites', '25 taxa, 30k sites',
                                        '50 taxa, 30k sites', '100 taxa, 30k sites'))
 
-linedata <- data.frame(dataset = c('50 taxa, 6k sites', '100 taxa, 6k sites', '50 taxa, 30k sites', '100 taxa, 30k sites'), 
-                       lnl = c(-184975.6612, -395528.5682, -923519.2429, -1970620.4804))
+linedata <- data.frame(dataset = c('10 taxa, 30k sites', '25 taxa, 30k sites',
+                                   '50 taxa, 30k sites', '100 taxa, 30k sites'), 
+                       lnl = c(-168965.4571, -475802.7081, -923519.2429, -1970620.4804))
+linedata$dataset <- factor(linedata$dataset, 
+                            levels = c('10 taxa, 30k sites', '25 taxa, 30k sites',
+                                       '50 taxa, 30k sites', '100 taxa, 30k sites'))
 
 ggplot(plot_data %>% filter(method > 0 & class > 4), aes(x = as.character(class), y = lnl)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 2, scale = "free_y") 
-#geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+
+  geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 #geom_text(x = '5', y = -184976, label = 'control group', color = 'darkblue', family = 'serif',data = subset(plot_data, dataset == '50 taxa, 6k sites'))
 
 
