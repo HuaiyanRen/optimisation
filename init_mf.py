@@ -19,53 +19,63 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
         with open(pre + '.csv', 'w+') as result:
             result.write('method,class,lnl,bic,lrt,df,time \n')
     
-    for c in range(1, class_num+1):
-        if c == 1:
-            cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m GTR{1,1,1,1,1}+FO -pre ' + pre + '/c1 -nt ' +nt + treefile
-            os.system(cmd)
-            
-            iq_file = pre + '/c1.iqtree'
-            lnl, bic, df, time = get_result(iq_file, c)
-            lrt = 'none'
-            
-            result_row = [str(method),str(c),str(lnl),str(bic),str(lrt),str(df),str(time)]
-            with open(pre + '.csv', 'a+', newline='') as result:   
-                writer = csv.writer(result)
-                writer.writerow(result_row)
-
-            
-        else:
-            print(c)
-            if method >= 3:
-                pre_result_file = pre + '/c' + str(c-1)
-                print(pre_result_file)
-                cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + model_cmd(pre_result_file, c-1, method) + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -opt_input_val' + treefile
-                print(cmd)
-            elif method == 1 or method == 2 or method == 0:
-                cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m MIX"{'
-                for i in range(c):
-                    if i < c-1:
-                        cmd = cmd + 'GTR{1/1/1/1/1}+FO,'
-                    else:
-                        cmd = cmd + 'GTR{1/1/1/1/1}+FO}"'
-                cmd = cmd + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -init_nucl_freq ' + str(method) + treefile
-            os.system(cmd)
-            
-            iq_file = pre + '/c'+str(c)+'.iqtree'
-            lnl_new, bic, df_new, time = get_result(iq_file, c)
-            
-            p_value = chi2.cdf(2*(lnl_new - lnl), df_new - df)
-            if p_value > 0.95:
-                lrt = 'yes'                
+    if method == 6:
+        cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + sim_model_cmd(treefile) + ' -pre ' + pre + '/c'+str(class_num-1)+' -nt ' +nt+' -opt_input_val' + treefile
+        os.system(cmd)
+        
+        iq_file = pre+'/c'+str(class_num-1)+'.iqtree'
+        lnl, bic, df, time = get_result(iq_file, class_num-1)
+        
+        result_row = [str(method),str(class_num-1),str(lnl),str(bic),'none',str(df),str(time)]
+        with open(pre + '.csv', 'a+', newline='') as result:   
+            writer = csv.writer(result)
+            writer.writerow(result_row)
+    else:
+        for c in range(1, class_num+1):
+            if c == 1:
+                cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m GTR{1,1,1,1,1}+FO -pre ' + pre + '/c1 -nt ' +nt + treefile
+                os.system(cmd)
+                
+                iq_file = pre + '/c1.iqtree'
+                lnl, bic, df, time = get_result(iq_file, c)
+                lrt = 'none'
+                
+                result_row = [str(method),str(c),str(lnl),str(bic),str(lrt),str(df),str(time)]
+                with open(pre + '.csv', 'a+', newline='') as result:   
+                    writer = csv.writer(result)
+                    writer.writerow(result_row)
+    
+                
             else:
-                lrt = 'no'
-            lnl = lnl_new
-            df = df_new
-            
-            result_row = [str(method),str(c),str(lnl),str(bic),str(lrt),str(df),str(time)]
-            with open(pre + '.csv', 'a+', newline='') as result:   
-                writer = csv.writer(result)
-                writer.writerow(result_row)
+                if method in [3,4,5]:
+                    pre_result_file = pre + '/c' + str(c-1)
+                    cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + model_cmd(pre_result_file, c-1, method) + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -opt_input_val' + treefile
+                elif method in [0,1,2]:
+                    cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m MIX"{'
+                    for i in range(c):
+                        if i < c-1:
+                            cmd = cmd + 'GTR{1/1/1/1/1}+FO,'
+                        else:
+                            cmd = cmd + 'GTR{1/1/1/1/1}+FO}"'
+                    cmd = cmd + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -init_nucl_freq ' + str(method) + treefile
+                    
+                os.system(cmd)
+                
+                iq_file = pre + '/c'+str(c)+'.iqtree'
+                lnl_new, bic, df_new, time = get_result(iq_file, c)
+                
+                p_value = chi2.cdf(2*(lnl_new - lnl), df_new - df)
+                if p_value > 0.95:
+                    lrt = 'yes'                
+                else:
+                    lrt = 'no'
+                lnl = lnl_new
+                df = df_new
+                
+                result_row = [str(method),str(c),str(lnl),str(bic),str(lrt),str(df),str(time)]
+                with open(pre + '.csv', 'a+', newline='') as result:   
+                    writer = csv.writer(result)
+                    writer.writerow(result_row)
                
 def get_result(file, c):
     with open(file) as iq_result:
@@ -123,6 +133,19 @@ def model_cmd(filename, class_num, method):
                     cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]*(2/3)) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]*(1/3)) + '}"'
                 elif method == 5:
                     cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO{0.25/0.25/0.25/0.25}:1:' + str(sorted_list[0][j]/2) + '}"'
+    return cmd
+
+def sim_model_cmd(file_name):
+    file_name = file_name.replace(' -te ', '') + '.log'
+    
+    cmd = 'MIX"{'
+    with open(file_name) as b:
+        for line in b.readlines():
+            if 'GTR           1.000' in line:
+                weight = line.split()[3]
+                para = line.split()[4].replace(',','/').replace('FU','FO')
+                cmd = cmd + para +':1:' + weight + ','
+    cmd = cmd[:-1] + '}"'
     return cmd
 
 
