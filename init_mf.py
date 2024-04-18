@@ -4,12 +4,16 @@ import math
 from scipy.stats import chi2
 import csv
 
-def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
+def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile, org):
     class_num = int(class_num)
     method = int(method)
 
     if treefile != '':
         treefile = ' -te ' + treefile
+    if org == 'EM':
+        org = ' -optalg_qmix EM'
+    else:
+        org = ''
 
     if pre == 'default':
         pre = file_name.split('/')[-1].split('.')[0] + '_i' + str(method)
@@ -20,7 +24,7 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
             result.write('method,class,lnl,bic,lrt,df,time \n')
     
     if method == 6:
-        cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + sim_model_cmd(treefile) + ' -pre ' + pre + '/c'+str(class_num-1)+' -nt ' +nt+' -opt_input_val' + treefile
+        cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + sim_model_cmd(treefile) + ' -pre ' + pre + '/c'+str(class_num-1)+' -nt ' +nt+' -opt_input_val' + treefile + org
         os.system(cmd)
         
         iq_file = pre+'/c'+str(class_num-1)+'.iqtree'
@@ -33,7 +37,7 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
     else:
         for c in range(1, class_num+1):
             if c == 1:
-                cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m GTR{1,1,1,1,1}+FO -pre ' + pre + '/c1 -nt ' +nt + treefile
+                cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m GTR{1,1,1,1,1}+FO -pre ' + pre + '/c1 -nt ' +nt + treefile + org
                 os.system(cmd)
                 
                 iq_file = pre + '/c1.iqtree'
@@ -49,7 +53,7 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
             else:
                 if method in [3,4,5]:
                     pre_result_file = pre + '/c' + str(c-1)
-                    cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + model_cmd(pre_result_file, c-1, method) + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -opt_input_val' + treefile
+                    cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m ' + model_cmd(pre_result_file, c-1, method) + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -opt_input_val' + treefile + org
                 elif method in [0,1,2]:
                     cmd = iqtree_loc + 'iqtree2 -s ' + file_name + ' -m MIX"{'
                     for i in range(c):
@@ -57,7 +61,7 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile):
                             cmd = cmd + 'GTR{1/1/1/1/1}+FO,'
                         else:
                             cmd = cmd + 'GTR{1/1/1/1/1}+FO}"'
-                    cmd = cmd + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -init_nucl_freq ' + str(method) + treefile
+                    cmd = cmd + ' -pre ' + pre + '/c'+str(c)+' -nt ' +nt+' -init_nucl_freq ' + str(method) + treefile + org
                     
                 os.system(cmd)
                 
@@ -164,11 +168,13 @@ parser.add_argument('--pre', '-pre', help='',
                     default = 'default')
 parser.add_argument('--treefile', '-te', help='',
                     default = '')
+parser.add_argument('--org', '-org', help='',
+                    default = '')
 args = parser.parse_args()
 
 
 if __name__ == '__main__':
     try:
-        init_mf(args.iqtree_loc, args.file_name, args.class_num, args.method, args.nt, args.pre, args.treefile)
+        init_mf(args.iqtree_loc, args.file_name, args.class_num, args.method, args.nt, args.pre, args.treefile, args.org)
     except Exception as e:
         print(e)
