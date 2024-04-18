@@ -193,14 +193,14 @@ df1$name <- para_sub$name
 df1$weight <- para_sub$weight
 df1$class <- para_sub$class
 
-p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+p1 = ggplot(data = df1 %>% filter(name %in% c('q1_bfgs0_dq7_rep1','q2_bfgs0_dq7_rep1','q3_bfgs0_dq3_rep2','q4_bfgs0_dq7_rep3','q5_bfgs0_dq7_rep2','q6_bfgs0_dq7_rep3','q7_bfgs0_dq7_rep1','sim_q7')) ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   scale_size_continuous(range = c(1, 5)) +
-  xlim(-12,5.0)+
-  ylim(0.5,1.5)+
+  #xlim(-12,5.0)+
+  #ylim(0.5,1.5)+
   labs(x = xlab1,y = ylab1,color = "sample data", size = "weight")+
   guides(fill = "none")+
-  facet_wrap(~name,ncol = 5)+
+  facet_wrap(~name,ncol = 4)+
   #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
   theme_bw()+
   theme(plot.title = element_text(hjust = 0.5))

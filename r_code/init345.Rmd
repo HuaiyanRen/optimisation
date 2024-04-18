@@ -24,18 +24,15 @@ lnl_data <- c3t50r0
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(2,4)+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   ylim(-93850,-93800)+
-  geom_line(aes(group = rep))+
   theme_bw()
 ```
 
@@ -88,18 +85,15 @@ lnl_data <- c3t100r0
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data , aes(x = as.character(class), y = lnl, color = as.character(method)))+
-  geom_jitter(width = 0.25)+
-  #xlim(2,4)+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   ylim(-200900,-200600)+
-  geom_line(aes(group = rep))+
   theme_bw()
 ```
 
@@ -150,18 +144,15 @@ lnl_data <- c3t25r0
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data %>% filter(class > 1), aes(x =  as.character(class), y = lnl, color = as.character(method)))+
-  geom_jitter(width = 0.25)+
-  #xlim(2,4)+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   ylim(-47710,-47700)+
-  geom_line(aes(group = rep))+
   theme_bw()
 ```
 
@@ -211,18 +202,15 @@ lnl_data <- c3t10r0
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(2,4)+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   ylim(-16780,-16770)+
-  geom_line(aes(group = rep))+
   theme_bw()
 ```
 
@@ -311,18 +299,15 @@ lnl_data <- c6t100r0
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(5,7)+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   ylim(-395600,-395500)+
-  geom_line(aes(group = rep))+
   theme_bw()
 ```
 
@@ -371,18 +356,15 @@ lnl_data <- c6t50r0
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(5,7)+
-  ylim(-185000,-184950)+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data %>% filter(class > 4), aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
+  ylim(-184985,-184970)+
   theme_bw()
 ```
 
@@ -431,18 +413,15 @@ lnl_data <- c6t25r0
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(4,7)+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   ylim(-94785,-94750)+
-  geom_line(aes(group = rep))+
   theme_bw()
 ```
 
@@ -491,18 +470,15 @@ lnl_data <- c6t10r0
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(3,7)+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   ylim(-33570,-33555)+
-  geom_line(aes(group = rep))+
   theme_bw()
 ```
 

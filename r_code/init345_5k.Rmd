@@ -25,18 +25,15 @@ lnl_data <- c3t10r05k
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(2,4)+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   ylim(-83250,-83240)+
-  geom_line(aes(group = rep))+
   theme_bw()
 ```
 
