@@ -690,11 +690,16 @@ plot_data <- plot_data %>% mutate(method = case_when(
   method == 5 ~ 'method new'
 ))
 
-ggplot(plot_data, aes(x =  as.character(class), y = lnl, color = as.character(method)))+
-  geom_boxplot()+
-  theme_bw()+
-  labs(x = 'number of classes', y = 'log-likelihood', color = 'initialisation method')+
-  facet_wrap(~dataset,nrow = 2,scale = "free_y")
+linedata <- data.frame(dataset = c('50 taxa, 6k sites', '100 taxa, 6k sites', '50 taxa, 30k sites', '100 taxa, 30k sites'), 
+                       lnl = c(-184975.6612, -395528.5682, -923519.2429, -1970620.4804))
+
+ggplot(plot_data, aes(x = as.character(class), y = lnl)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y") +
+  geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+  #geom_text(x = '5', y = -184976, label = 'control group', color = 'darkblue', family = 'serif',data = subset(plot_data, dataset == '50 taxa, 6k sites'))
 
 times <- plot_data %>%
   group_by(rep) %>%
