@@ -93,9 +93,22 @@ ggplot(plot_data %>% filter(method > 0 & class > 4), aes(x = as.character(class)
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 4, scale = "free_y")+ 
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+ 
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
-#geom_text(x = '5', y = -184976, label = 'control group', color = 'darkblue', family = 'serif',data = subset(plot_data, dataset == '50 taxa, 6k sites'))
+
+ggplot(plot_data , aes(x = as.character(class), y = lnl)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+ 
+  geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+
+
+lrt_results <- d %>%
+  group_by(rep) %>%
+  summarize(lrt_detail = paste(lrt, collapse = "_"))
+
+table(lrt_results)
 
 # c6 time
 
@@ -211,10 +224,8 @@ ggplot(plot_data %>% filter(method > 0 & class > 4), aes(x = as.character(class)
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 4, scale = "free_y")+
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
-#geom_text(x = '5', y = -184976, label = 'control group', color = 'darkblue', family = 'serif',data = subset(plot_data, dataset == '50 taxa, 6k sites'))
-
 
 
 # c6 time

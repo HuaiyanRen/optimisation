@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-path = r'C:\Users\u7151703\Desktop\research\optimisation\data\pca_candi\c65k'
+path = r'C:\Users\u7151703\Desktop\research\optimisation\data\pca_candi\c61k'
 
 
 df = pd.DataFrame({
