@@ -129,7 +129,7 @@ temptime <- plot_data %>% filter(method < 3) %>% filter(class == 6) %>%
   ))
 times <- rbind(times, temptime)
 
-ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
+ggplot(times %>% filter(method != 0 & method != '0,c6'), aes(x = as.character(method), y = runtime, color = method))+
   geom_boxplot()+
   scale_y_log10()+
   labs(y = 'runtime(s)', x = 'initialisation method', color = 'initialisation method')+
@@ -189,7 +189,7 @@ temptime <- plot_data %>% filter(method < 3) %>% filter(class == 3) %>%
   ))
 times <- rbind(times, temptime)
 
-ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
+ggplot(times , aes(x = as.character(method), y = runtime, color = method))+
   geom_boxplot()+
   scale_y_log10()+
   labs(y = 'runtime(s)', x = 'initialisation method', color = 'initialisation method')+
@@ -247,7 +247,7 @@ temptime <- plot_data %>% filter(method < 3) %>% filter(class == 6) %>%
   ))
 times <- rbind(times, temptime)
 
-ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
+ggplot(times %>% filter(method != 0 & method != '0,c6'), aes(x = as.character(method), y = runtime, color = method))+
   geom_boxplot()+
   scale_y_log10()+
   labs(y = 'runtime(s)', x = 'initialisation method', color = 'initialisation method')+
@@ -282,7 +282,7 @@ ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 4), aes(x = as.cha
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 3, scale = "free_y")+ 
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+ 
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 
 lrt_results <- d %>%
