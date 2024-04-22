@@ -84,27 +84,28 @@ plot_data$dataset <- factor(plot_data$dataset,
 
 linedata <- data.frame(dataset = c('10 taxa, 6k sites', '25 taxa, 6k sites', 
                                    '50 taxa, 6k sites', '100 taxa, 6k sites'), 
-                       lnl = c(-33559.4087, -94754.1193, -184975.6612, -395528.5682))
+                       lnl = c(-33559.4087, -94754.1193, -184975.6612, -395528.5682),
+                       bic = c(67466.79799,190117.2046,370995.2642,792971.0296))
 linedata$dataset <- factor(linedata$dataset, 
                             levels = c('10 taxa, 6k sites', '25 taxa, 6k sites', 
                                        '50 taxa, 6k sites', '100 taxa, 6k sites'))
 
-ggplot(plot_data %>% filter(method > 0 & class > 4), aes(x = as.character(class), y = lnl)) +
+ggplot(plot_data %>% filter(method > 0 & class > 3), aes(x = as.character(class), y = lnl)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
   facet_wrap(~ dataset, nrow = 2, scale = "free_y")+ 
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 
-ggplot(plot_data , aes(x = as.character(class), y = lnl)) +
+ggplot(plot_data %>% filter(method > 0 & class > 4), aes(x = as.character(class), y = bic)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
-  labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
+  labs(x = 'Number of Classes', y = 'BIC', color = 'Initialisation Method') +
   facet_wrap(~ dataset, nrow = 2, scale = "free_y")+ 
-  geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+  geom_hline(data = linedata, aes(yintercept = bic), color = "darkblue", linetype = "dashed", size = 0.75)
 
 
-lrt_results <- d %>%
+lrt_results <- b %>%
   group_by(rep) %>%
   summarize(lrt_detail = paste(lrt, collapse = "_"))
 
@@ -227,6 +228,18 @@ ggplot(plot_data %>% filter(method > 0 & class > 4), aes(x = as.character(class)
   facet_wrap(~ dataset, nrow = 2, scale = "free_y")+
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 
+ggplot(plot_data %>% filter(method > 0 & class > 4), aes(x = as.character(class), y = bic)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'BIC', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")
+
+ggplot(plot_data %>% filter(method > 0 & class > 4) %>% filter(dataset == '100 taxa, 30k sites'), aes(x = as.character(class), y = bic)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw()+
+  ylim(3943000,3945000) +
+  labs(x = 'Number of Classes', y = 'BIC', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")
 
 # c6 time
 
@@ -285,12 +298,18 @@ linedata <- data.frame(dataset = levels(plot_data$dataset),
                        lnl = (plot_data %>% filter(method == 6))$lnl)
 linedata$dataset <- factor(linedata$dataset,levels = levels(plot_data$dataset))
 
-ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 4), aes(x = as.character(class), y = lnl)) +
+ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 3), aes(x = as.character(class), y = lnl)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
   facet_wrap(~ dataset, nrow = 1, scale = "free_y")+ 
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+
+ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 3), aes(x = as.character(class), y = bic)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'BIC', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 1, scale = "free_y")
 
 lrt_results <- d %>%
   group_by(rep) %>%
@@ -321,17 +340,30 @@ plot_data$dataset <- factor(plot_data$dataset,
                                        '50 taxa, 30k sites', '100 taxa, 30k sites'))
 
 linedata <- data.frame(dataset = levels(plot_data$dataset), 
-                       lnl = (plot_data %>% filter(method == 6))$lnl)
+                       lnl = (plot_data %>% filter(method == 6))$lnl,
+                       bic = (plot_data %>% filter(method == 6))$bic)
 linedata$dataset <- factor(linedata$dataset,levels = levels(plot_data$dataset))
 
-ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 4), aes(x = as.character(class), y = lnl)) +
+ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 3), aes(x = as.character(class), y = lnl)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
   facet_wrap(~ dataset, nrow = 1, scale = "free_y")+ 
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 
-lrt_results <- b %>%
+ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 3), aes(x = as.character(class), y = bic)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'BIC', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 1, scale = "free_y")
+
+ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 3) %>% filter(dataset == '100 taxa, 30k sites'), aes(x = as.character(class), y = bic)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  ylim(3563500,3564000)+
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'BIC', color = 'Initialisation Method') 
+
+lrt_results <- c %>%
   group_by(rep) %>%
   summarize(lrt_detail = paste(lrt, collapse = "_"))
 
