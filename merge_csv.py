@@ -1,7 +1,7 @@
 import os
 import csv
 
-folder_path = r'C:\Users\u7151703\Desktop\research\optimisation\data\f81_qmix\c6t25r2'
+folder_path = r'C:\Users\u7151703\Desktop\research\optimisation\data\f81_qmix\c6t25r25k'
 
 new_csv_path = os.path.join(folder_path,'sum_result.csv')
 

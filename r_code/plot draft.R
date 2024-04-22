@@ -254,12 +254,19 @@ ggplot(times %>% filter(method != 0 & method != '0,c6'), aes(x = as.character(me
   theme_bw()+
   facet_wrap(~dataset,nrow = 2,scale = "free_y")
 
-### rep2
+### reps
 
 # c6 detail
+# r1
+c6t25r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t25r1/sum_result.csv", show_col_types = FALSE)
+c6t50r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t50r1/sum_result.csv", show_col_types = FALSE)
+c6t100r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t100r1/sum_result.csv", show_col_types = FALSE)
+
+# r2
 c6t25r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t25r2/sum_result.csv", show_col_types = FALSE)
 c6t50r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t50r2/sum_result.csv", show_col_types = FALSE)
 c6t100r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t100r2/sum_result.csv", show_col_types = FALSE)
+
 
 
 b <- c6t25r2 
@@ -282,10 +289,49 @@ ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 4), aes(x = as.cha
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+ 
+  facet_wrap(~ dataset, nrow = 1, scale = "free_y")+ 
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 
 lrt_results <- d %>%
+  group_by(rep) %>%
+  summarize(lrt_detail = paste(lrt, collapse = "_"))
+
+table(lrt_results)
+
+# r1 5k
+c6t25r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t25r15k/sum_result.csv", show_col_types = FALSE)
+c6t50r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t50r15k/sum_result.csv", show_col_types = FALSE)
+c6t100r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t100r15k/sum_result.csv", show_col_types = FALSE)
+
+# r2 5k
+c6t25r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t25r25k/sum_result.csv", show_col_types = FALSE)
+c6t50r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t50r25k/sum_result.csv", show_col_types = FALSE)
+c6t100r2 <- read_csv("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t100r25k/sum_result.csv", show_col_types = FALSE)
+
+b <- c6t25r2 
+b <- b %>% mutate(dataset = '25 taxa, 30k sites')
+c <- c6t50r2 
+c <- c %>% mutate(dataset = '50 taxa, 30k sites')
+d <- c6t100r2 
+d <- d %>% mutate(dataset = '100 taxa, 30k sites')
+
+plot_data <- rbind(b,c,d)
+plot_data$dataset <- factor(plot_data$dataset, 
+                            levels = c('25 taxa, 30k sites', 
+                                       '50 taxa, 30k sites', '100 taxa, 30k sites'))
+
+linedata <- data.frame(dataset = levels(plot_data$dataset), 
+                       lnl = (plot_data %>% filter(method == 6))$lnl)
+linedata$dataset <- factor(linedata$dataset,levels = levels(plot_data$dataset))
+
+ggplot(plot_data %>% filter(method > 0 & method < 6 & class > 4), aes(x = as.character(class), y = lnl)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 1, scale = "free_y")+ 
+  geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
+
+lrt_results <- b %>%
   group_by(rep) %>%
   summarize(lrt_detail = paste(lrt, collapse = "_"))
 
@@ -314,7 +360,7 @@ ggplot(times %>% filter(method > 0 & method < 6), aes(x = as.character(method), 
   scale_y_log10()+
   labs(y = 'runtime(s)', x = 'initialisation method', color = 'initialisation method')+
   theme_bw()+
-  facet_wrap(~dataset,nrow = 3,scale = "free_y")
+  facet_wrap(~dataset,nrow = 1,scale = "free_y")
 
 
 
