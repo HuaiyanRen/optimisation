@@ -30,11 +30,11 @@ ggplot(plot_data, aes(x = as.character(class), y = lnl)) +
 
 # c3 detail
 
-ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class), y = lnl)) +
+ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class), y = bic)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
-  facet_wrap(~ dataset, nrow = 4, scale = "free_y")+
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")+
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 
 
