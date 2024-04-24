@@ -30,13 +30,18 @@ ggplot(plot_data, aes(x = as.character(class), y = lnl)) +
 
 # c3 detail
 
-ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class), y = bic)) +
+ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class), y = lnl)) +
   geom_boxplot(aes(color = as.character(method))) +
   theme_bw() +
   labs(x = 'Number of Classes', y = 'Log-likelihood', color = 'Initialisation Method') +
   facet_wrap(~ dataset, nrow = 2, scale = "free_y")+
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 
+ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class), y = bic)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'BIC', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")
 
 # c3 time
 
@@ -170,6 +175,11 @@ ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class)
   geom_hline(data = linedata, aes(yintercept = lnl), color = "darkblue", linetype = "dashed", size = 0.75)
 #geom_text(x = '5', y = -184976, label = 'control group', color = 'darkblue', family = 'serif',data = subset(plot_data, dataset == '50 taxa, 6k sites'))
 
+ggplot(plot_data %>% filter(method > 0 & class > 1), aes(x = as.character(class), y = bic)) +
+  geom_boxplot(aes(color = as.character(method))) +
+  theme_bw() +
+  labs(x = 'Number of Classes', y = 'BIC', color = 'Initialisation Method') +
+  facet_wrap(~ dataset, nrow = 2, scale = "free_y")
 
 # c3 time
 
