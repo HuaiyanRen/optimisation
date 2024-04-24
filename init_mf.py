@@ -101,7 +101,12 @@ def model_cmd(filename, class_num, method):
     cmd = 'MIX"{GTR{1/1/1/1/1}+FO'
                 
     if class_num == 1:
-        cmd = cmd + '{'
+        if method == 3:
+            cmd = cmd + '{:1:0.5,GTR{1/1/1/1/1}+FO{'
+        elif method == 4:
+            cmd = cmd + '{:1:0.333,GTR{1/1/1/1/1}+FO{'
+        elif method == 5:    
+            cmd = cmd + '{{0.25/0.25/0.25/0.25}:1:0.5,GTR{1/1/1/1/1}+FO{'
         with open(iqtree_file) as b:
             for line in b.readlines():
                 if '  pi(A) =' in line:
@@ -112,8 +117,10 @@ def model_cmd(filename, class_num, method):
                     cmd = cmd + str(line.split()[-1]) + str('/')
                 if '  pi(T) =' in line:
                     cmd = cmd + str(line.split()[-1])
-                    
-        cmd = cmd + '}:1:0.5,GTR{1/1/1/1/1}+FO:1:0.5}"'
+        if method == 4:
+            cmd = cmd + '}:1:0.667}"'
+        else:
+            cmd = cmd + '}:1:0.5}"'
     else:
         model_list = [[0] * class_num for _ in range(2)]
         for i in range(class_num):
@@ -124,19 +131,21 @@ def model_cmd(filename, class_num, method):
                         model_list[1][i] = line.split()[4].split('FO')[1].replace(',','/')
     
         paired = list(zip(*model_list))
-        sorted_paired = sorted(paired, key=lambda x: x[0])
+        sorted_paired = sorted(paired, key=lambda x: x[0],reverse=True)
         sorted_list = list(zip(*sorted_paired))
     
         for j in range(class_num):
-            if j != class_num -1:
+            if j == 0:
+                if method == 3:
+                    cmd = cmd + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO' + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO'
+                elif method == 4:
+                    cmd = cmd + ':1:' + str(sorted_list[0][j]*(1/3)) + ',GTR{1/1/1/1/1}+FO' + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]*(2/3)) + ',GTR{1/1/1/1/1}+FO'
+                elif method == 5:    
+                    cmd = cmd +'{0.25/0.25/0.25/0.25}:1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO' + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO'
+            elif j < class_num - 2:    
                 cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]) + ',GTR{1/1/1/1/1}+FO'
             else:
-                if method == 3:
-                    cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]/2) + '}"'
-                elif method == 4:
-                    cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]*(2/3)) + ',GTR{1/1/1/1/1}+FO:1:' + str(sorted_list[0][j]*(1/3)) + '}"'
-                elif method == 5:
-                    cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO{0.25/0.25/0.25/0.25}:1:' + str(sorted_list[0][j]/2) + '}"'
+                cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]) + '}"'
     return cmd
 
 def sim_model_cmd(file_name):
