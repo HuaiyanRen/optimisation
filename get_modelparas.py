@@ -1,33 +1,11 @@
-import pandas as pd
 import os
+import pandas as pd
 
-path = r'C:\Users\u7151703\Desktop\research\optimisation\c3_df3'
-
-model_type = ['f']
-classes = [3]
-org = ['em']
-initi = [0,1,2]
-dataset = ['f3']
-rep = [1,2,3,4,5]
-
-data_list = []
-for t in model_type:
-    for c in classes:
-        for o in org:
-            for i in initi:
-                for d in dataset:
-                    for r in rep:
-                        data_list.append([t, c, o, i, d, r])
+path = r'C:\Users\u7151703\Desktop\research\optimisation\data\turtle\t1'
 
 df = pd.DataFrame({
     'name': [],
     'class': [],
-    'type': [],
-    'optimiser': [],
-    'initialisation': [],
-    'sim_data': [],  
-    'replicate': [],
-    'class_ind': [],
     'weight': [],
     'AC': [],
     'AG': [],  
@@ -46,6 +24,7 @@ df = pd.DataFrame({
     'qCT': [], 
     'qGT': []
 })
+
 
 xlsx_file = os.path.join(path, 'para.xlsx')
 
@@ -69,101 +48,146 @@ def normal_q(r,f):
     return q
 
 
-for iqfile in data_list:
-    #file_name = str(iqfile[0]) +str(iqfile[1]) + '_' + iqfile[2] + str(iqfile[3]) + '_d' + str(iqfile[4]) + '_rep' + str(iqfile[5])
-    file_name = str(iqfile[0]) +'1_' + iqfile[2] + str(iqfile[3]) + '_d' + str(iqfile[4]) + '_rep' + str(iqfile[5])
+for filename in os.listdir(path):
+    if filename.endswith('.iqtree'):
+        file_path = os.path.join(path, filename)
+        name = filename.split('.iqtree')[0]
         
-    iqtree_file = os.path.join(path, file_name + '.iqtree')
-    if not os.path.exists(iqtree_file):
-        continue
+        weight = []
+        AC = []
+        AG = []
+        AT = []
+        CG = []
+        CT = []
+        GT = []
+        FA = []
+        FC = []
+        FG = []
+        FT = []
+        qAC = []
+        qAG = []
+        qAT = []
+        qCG = []
+        qCT = []
+        qGT = []
+        
+        with open(file_path) as b:
+            for line in b.readlines():
+                if 'Model of substitution:' in line:
+                    n_class = 1
+                    break
+                if 'Mixture model of substitution:' in line:
+                    n_class = line.count(',') + 1
+                    break
     
-    weight = []
-    AC = []
-    AG = []
-    AT = []
-    CG = []
-    CT = []
-    GT = []
-    FA = []
-    FC = []
-    FG = []
-    FT = []
-    qAC = []
-    qAG = []
-    qAT = []
-    qCG = []
-    qCT = []
-    qGT = []
-    
-    with open(iqtree_file) as b:
-        for line in b.readlines():
-            for i in range(1,iqfile[1]+1):
-                if str(i) + '  GTR' in line:
-                    r = []
-                    f = []
-                    
-                    weight.append(float(line.split()[-2]))
-                    gtr_all = line.split()[-1]
-                    gtr_list = gtr_all.split(',')
-                    AC.append(float(gtr_list[0].split('{')[1]))
-                    AG.append(float(gtr_list[1]))
-                    AT.append(float(gtr_list[2]))
-                    CG.append(float(gtr_list[3]))
-                    CT.append(float(gtr_list[4].split('}')[0]))
-                    GT.append(1)
-                    FA.append(float(gtr_list[4].split('{')[1]))
-                    FC.append(float(gtr_list[5]))
-                    FG.append(float(gtr_list[6]))
-                    FT.append(float(gtr_list[7].split('}')[0]))
-                    
-                    r.append(float(gtr_list[0].split('{')[1]))
-                    r.append(float(gtr_list[1]))
-                    r.append(float(gtr_list[2]))
-                    r.append(float(gtr_list[3]))
-                    r.append(float(gtr_list[4].split('}')[0]))
-                    f.append(float(gtr_list[4].split('{')[1]))
-                    f.append(float(gtr_list[5]))
-                    f.append(float(gtr_list[6]))
-                    f.append(float(gtr_list[7].split('}')[0]))
-                    
-                    q = normal_q(r,f)
-                    qAC.append(q[0][1])
-                    qAG.append(q[0][2])
-                    qAT.append(q[0][3])
-                    qCG.append(q[1][2])
-                    qCT.append(q[1][3])
-                    qGT.append(q[2][3])
-    
-    true_file_name = str(iqfile[0]) +str(iqfile[1]) + '_bfgs' + str(iqfile[3]) + '_d' + str(iqfile[4]) + '_rep' + str(iqfile[5])
-    df1 = pd.DataFrame({
-        'name': [true_file_name]*iqfile[1],
-        'class': [iqfile[1]]*iqfile[1],
-        'type': [iqfile[0]]*iqfile[1],
-        'optimiser': [iqfile[2]]*iqfile[1],
-        'initialisation': [iqfile[3]]*iqfile[1],
-        'sim_data': [iqfile[4]]*iqfile[1],  
-        'replicate': [iqfile[5]]*iqfile[1],
-        'class_ind': list(range(1,iqfile[1]+1)),
-        'weight': weight,
-        'AC': AC,
-        'AG': AG,  
-        'AT': AT, 
-        'CG': CG, 
-        'CT': CT, 
-        'GT': GT, 
-        'FA': FA, 
-        'FC': FC, 
-        'FG': FG, 
-        'FT': FT,
-        'qAC': qAC,
-        'qAG': qAG,  
-        'qAT': qAT, 
-        'qCG': qCG, 
-        'qCT': qCT, 
-        'qGT': qGT
-    })
-    
-    df = pd.concat([df, df1], ignore_index=True)
+        if n_class == 1:
+            r = []
+            f = []
+            GT.append(1) 
+            weight = 1
+            
+            with open(file_path) as b:
+                for line in b.readlines():                                        
+                    if 'A-C:' in line:
+                        AC.append(float(line.split()[-1]))
+                        r.append(float(line.split()[-1]))
+                    if 'A-G:' in line:
+                        AG.append(float(line.split()[-1]))
+                        r.append(float(line.split()[-1]))
+                    if 'A-T:' in line:
+                        AT.append(float(line.split()[-1]))
+                        r.append(float(line.split()[-1]))
+                    if 'C-G:' in line:
+                        CG.append(float(line.split()[-1]))
+                        r.append(float(line.split()[-1]))
+                    if 'C-T:' in line:
+                        CT.append(float(line.split()[-1]))
+                        r.append(float(line.split()[-1]))
+                        r.append(1)
+                    if 'pi(A)' in line:
+                        FA.append(float(line.split()[-1]))
+                        f.append(float(line.split()[-1]))
+                    if 'pi(C)' in line:
+                        FC.append(float(line.split()[-1]))
+                        f.append(float(line.split()[-1]))
+                    if 'pi(G)' in line:
+                        FG.append(float(line.split()[-1]))
+                        f.append(float(line.split()[-1]))
+                    if 'pi(T)' in line:
+                        FT.append(float(line.split()[-1]))
+                        f.append(float(line.split()[-1]))
+            
+            q = normal_q(r,f)
+            qAC.append(q[0][1])
+            qAG.append(q[0][2])
+            qAT.append(q[0][3])
+            qCG.append(q[1][2])
+            qCT.append(q[1][3])
+            qGT.append(q[2][3])
+            
+        else:     
+            with open(file_path) as b:
+                for line in b.readlines():
+                    for i in range(1,n_class+1):
+                        if str(i) + '  GTR' in line:
+                            r = []
+                            f = []
+                            
+                            weight.append(float(line.split()[-2]))
+                            gtr_all = line.split()[-1]
+                            gtr_list = gtr_all.split(',')
+                            AC.append(float(gtr_list[0].split('{')[1]))
+                            AG.append(float(gtr_list[1]))
+                            AT.append(float(gtr_list[2]))
+                            CG.append(float(gtr_list[3]))
+                            CT.append(float(gtr_list[4].split('}')[0]))
+                            GT.append(1)
+                            FA.append(float(gtr_list[4].split('{')[1]))
+                            FC.append(float(gtr_list[5]))
+                            FG.append(float(gtr_list[6]))
+                            FT.append(float(gtr_list[7].split('}')[0]))
+                            
+                            r.append(float(gtr_list[0].split('{')[1]))
+                            r.append(float(gtr_list[1]))
+                            r.append(float(gtr_list[2]))
+                            r.append(float(gtr_list[3]))
+                            r.append(float(gtr_list[4].split('}')[0]))
+                            f.append(float(gtr_list[4].split('{')[1]))
+                            f.append(float(gtr_list[5]))
+                            f.append(float(gtr_list[6]))
+                            f.append(float(gtr_list[7].split('}')[0]))
+                            
+                            q = normal_q(r,f)
+                            qAC.append(q[0][1])
+                            qAG.append(q[0][2])
+                            qAT.append(q[0][3])
+                            qCG.append(q[1][2])
+                            qCT.append(q[1][3])
+                            qGT.append(q[2][3])
+        
+        df1 = pd.DataFrame({
+            'name': [name]*n_class,
+            'class': list(range(1, n_class+1)),
+            'weight': weight,
+            'AC': AC,
+            'AG': AG,  
+            'AT': AT, 
+            'CG': CG, 
+            'CT': CT, 
+            'GT': GT, 
+            'FA': FA, 
+            'FC': FC, 
+            'FG': FG, 
+            'FT': FT,
+            'qAC': qAC,
+            'qAG': qAG,  
+            'qAT': qAT, 
+            'qCG': qCG, 
+            'qCT': qCT, 
+            'qGT': qGT
+        })
+        
+        df = pd.concat([df, df1], ignore_index=True)
 
 df.to_excel(xlsx_file, index=False, engine='openpyxl')
 
