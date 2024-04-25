@@ -48,7 +48,6 @@ def init_mf(iqtree_loc, file_name, class_num, method, nt, pre, treefile, org):
                 with open(pre + '.csv', 'a+', newline='') as result:   
                     writer = csv.writer(result)
                     writer.writerow(result_row)
-    
                 
             else:
                 if method in [3,4,5]:
@@ -102,11 +101,11 @@ def model_cmd(filename, class_num, method):
                 
     if class_num == 1:
         if method == 3:
-            cmd = cmd + '{:1:0.5,GTR{1/1/1/1/1}+FO{'
+            cmd = cmd + ':1:0.5,GTR{1/1/1/1/1}+FO{'
         elif method == 4:
-            cmd = cmd + '{:1:0.333,GTR{1/1/1/1/1}+FO{'
+            cmd = cmd + ':1:0.333,GTR{1/1/1/1/1}+FO{'
         elif method == 5:    
-            cmd = cmd + '{{0.25/0.25/0.25/0.25}:1:0.5,GTR{1/1/1/1/1}+FO{'
+            cmd = cmd + '{0.25/0.25/0.25/0.25}:1:0.5,GTR{1/1/1/1/1}+FO{'
         with open(iqtree_file) as b:
             for line in b.readlines():
                 if '  pi(A) =' in line:
@@ -142,10 +141,10 @@ def model_cmd(filename, class_num, method):
                     cmd = cmd + ':1:' + str(sorted_list[0][j]*(1/3)) + ',GTR{1/1/1/1/1}+FO' + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]*(2/3)) + ',GTR{1/1/1/1/1}+FO'
                 elif method == 5:    
                     cmd = cmd +'{0.25/0.25/0.25/0.25}:1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO' + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]/2) + ',GTR{1/1/1/1/1}+FO'
-            elif j < class_num - 2:    
-                cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]) + ',GTR{1/1/1/1/1}+FO'
-            else:
+            elif j == class_num - 1:
                 cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]) + '}"'
+            else:    
+                cmd = cmd + str(sorted_list[1][j]) + ':1:' + str(sorted_list[0][j]) + ',GTR{1/1/1/1/1}+FO'
     return cmd
 
 def sim_model_cmd(file_name):
