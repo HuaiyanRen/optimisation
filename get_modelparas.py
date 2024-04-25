@@ -22,7 +22,8 @@ df = pd.DataFrame({
     'qAT': [], 
     'qCG': [], 
     'qCT': [], 
-    'qGT': []
+    'qGT': [],
+    'lnl': []
 })
 
 
@@ -75,10 +76,10 @@ for filename in os.listdir(path):
             for line in b.readlines():
                 if 'Model of substitution:' in line:
                     n_class = 1
-                    break
                 if 'Mixture model of substitution:' in line:
                     n_class = line.count(',') + 1
-                    break
+                if 'Log-likelihood of the tree:' in line:
+                    lnl = float(line.split()[4])
     
         if n_class == 1:
             r = []
@@ -184,7 +185,8 @@ for filename in os.listdir(path):
             'qAT': qAT, 
             'qCG': qCG, 
             'qCT': qCT, 
-            'qGT': qGT
+            'qGT': qGT,
+            'lnl': [lnl]*n_class
         })
         
         df = pd.concat([df, df1], ignore_index=True)
