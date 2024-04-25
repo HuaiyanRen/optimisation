@@ -20,12 +20,13 @@ options(scipen=999)
 # turtle
 ```{r}
 turtlet1 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/data/turtle/t1/para.xlsx")
+turtlet5 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/data/turtle/t5/para.xlsx")
 ```
 
 
 
 ```{r}
-para_sub <- turtlet1 
+para_sub <- turtlet5
 
 para_sub$qAC_l <- log(para_sub$qAC,base = 10)
 para_sub$qAG_l <- log(para_sub$qAG,base = 10)
@@ -34,7 +35,7 @@ para_sub$qCG_l <- log(para_sub$qCG,base = 10)
 para_sub$qCT_l <- log(para_sub$qCT,base = 10)
 para_sub$qGT_l <- log(para_sub$qGT,base = 10)
 
-pca1 <- prcomp(para_sub[,c(20:25)],center = FALSE, scale. = FALSE)
+pca1 <- prcomp(para_sub[,c(21:26)],center = FALSE, scale. = FALSE)
 
 df1 <- pca1$x 
 df1 <- as.data.frame(df1) 
