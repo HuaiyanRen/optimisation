@@ -1,11 +1,12 @@
 import os
 import pandas as pd
 
-path = r'C:\Users\u7151703\Desktop\research\optimisation\data\pca_candi\c61k'
+path = r'C:\Users\u7151703\Desktop\research\optimisation\data\f81_qmix\c6t50r0'
 
 
 df = pd.DataFrame({
     'name': [],
+    'lnl': [],
     'class': [],
     'weight': [],
     'AC': [],
@@ -48,35 +49,90 @@ def normal_q(r,f):
         
     return q
 
+iq_list = []
 
-for filename in os.listdir(path):
-    if filename.endswith('.iqtree'):
-        file_path = os.path.join(path, filename)
-        name = filename.split('.iqtree')[0]
+for root, dirs, files in os.walk(path):
+    for file in files:
+        if file.endswith(".iqtree"):
+            iq_list.append(os.path.join(root, file))
 
-        weight = []
-        AC = []
-        AG = []
-        AT = []
-        CG = []
-        CT = []
-        GT = []
-        FA = []
-        FC = []
-        FG = []
-        FT = []
-        qAC = []
-        qAG = []
-        qAT = []
-        qCG = []
-        qCT = []
-        qGT = []
 
+for file_path in iq_list:
+    relative_path = os.path.relpath(file_path, path)
+    name = relative_path.split('.iqtree')[0].replace('\\', '_')
+
+    weight = []
+    AC = []
+    AG = []
+    AT = []
+    CG = []
+    CT = []
+    GT = []
+    FA = []
+    FC = []
+    FG = []
+    FT = []
+    qAC = []
+    qAG = []
+    qAT = []
+    qCG = []
+    qCT = []
+    qGT = []
+
+    with open(file_path) as b:
+        for line in b.readlines():
+            if 'Model of substitution:' in line:
+                n_class = 1
+            if 'Mixture model of substitution:' in line:
+                n_class = line.count(',') + 1
+            if 'Log-likelihood of the tree:' in line:
+                lnl = float(line.split()[4])
+
+    if n_class == 1:
+        r = []
+        f = []
+        GT.append(1) 
+        weight = 1
+        
         with open(file_path) as b:
-            for line in b.readlines():
-                if 'Mixture model of substitution:' in line:
-                    n_class = line.count(',') + 1
-
+            for line in b.readlines():                                        
+                if 'A-C:' in line:
+                    AC.append(float(line.split()[-1]))
+                    r.append(float(line.split()[-1]))
+                if 'A-G:' in line:
+                    AG.append(float(line.split()[-1]))
+                    r.append(float(line.split()[-1]))
+                if 'A-T:' in line:
+                    AT.append(float(line.split()[-1]))
+                    r.append(float(line.split()[-1]))
+                if 'C-G:' in line:
+                    CG.append(float(line.split()[-1]))
+                    r.append(float(line.split()[-1]))
+                if 'C-T:' in line:
+                    CT.append(float(line.split()[-1]))
+                    r.append(float(line.split()[-1]))
+                    r.append(1)
+                if 'pi(A)' in line:
+                    FA.append(float(line.split()[-1]))
+                    f.append(float(line.split()[-1]))
+                if 'pi(C)' in line:
+                    FC.append(float(line.split()[-1]))
+                    f.append(float(line.split()[-1]))
+                if 'pi(G)' in line:
+                    FG.append(float(line.split()[-1]))
+                    f.append(float(line.split()[-1]))
+                if 'pi(T)' in line:
+                    FT.append(float(line.split()[-1]))
+                    f.append(float(line.split()[-1]))
+        
+        q = normal_q(r,f)
+        qAC.append(q[0][1])
+        qAG.append(q[0][2])
+        qAT.append(q[0][3])
+        qCG.append(q[1][2])
+        qCT.append(q[1][3])
+        qGT.append(q[2][3])
+    else:    
         with open(file_path) as b:
             for line in b.readlines():
                 for i in range(1,n_class+1):
@@ -116,29 +172,30 @@ for filename in os.listdir(path):
                         qCT.append(q[1][3])
                         qGT.append(q[2][3])
 
-        df1 = pd.DataFrame({
-            'name': [name]*n_class,
-            'class': list(range(1, n_class+1)),
-            'weight': weight,
-            'AC': AC,
-            'AG': AG,  
-            'AT': AT, 
-            'CG': CG, 
-            'CT': CT, 
-            'GT': GT, 
-            'FA': FA, 
-            'FC': FC, 
-            'FG': FG, 
-            'FT': FT,
-            'qAC': qAC,
-            'qAG': qAG,  
-            'qAT': qAT, 
-            'qCG': qCG, 
-            'qCT': qCT, 
-            'qGT': qGT
-        })
-        
-        df = pd.concat([df, df1], ignore_index=True)
+    df1 = pd.DataFrame({
+        'name': [name]*n_class,
+        'lnl': [lnl]*n_class,
+        'class': list(range(1, n_class+1)),
+        'weight': weight,
+        'AC': AC,
+        'AG': AG,  
+        'AT': AT, 
+        'CG': CG, 
+        'CT': CT, 
+        'GT': GT, 
+        'FA': FA, 
+        'FC': FC, 
+        'FG': FG, 
+        'FT': FT,
+        'qAC': qAC,
+        'qAG': qAG,  
+        'qAT': qAT, 
+        'qCG': qCG, 
+        'qCT': qCT, 
+        'qGT': qGT
+    })
+    
+    df = pd.concat([df, df1], ignore_index=True)
 
 df.to_excel(xlsx_file, index=False, engine='openpyxl')
 
