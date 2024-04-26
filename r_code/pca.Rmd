@@ -50,7 +50,7 @@ df1$rep <- para_sub$rep
 ```
 
 ```{r}
-p1 = ggplot(data = df1 %>% filter(method == 'i5') ,aes(x = PC1,y = PC2))+
+p1 = ggplot(data = df1 %>% filter(method == 'i3') ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   #scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1, size = "weight")+
