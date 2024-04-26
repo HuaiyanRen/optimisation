@@ -64,6 +64,12 @@ p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
 p1
 ```
 
+```{r}
+class_sub <- method_sub %>% filter(class == 1 & nclass == 'c4')
+list(class_sub$lnl)
+```
+
+
 
 # turtle
 ```{r}
