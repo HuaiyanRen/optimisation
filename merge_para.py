@@ -60,6 +60,7 @@ for root, dirs, files in os.walk(path):
 for file_path in iq_list:
     relative_path = os.path.relpath(file_path, path)
     name = relative_path.split('.iqtree')[0].replace('\\', '_')
+    name = name + 'res'
 
     weight = []
     AC = []
@@ -196,6 +197,99 @@ for file_path in iq_list:
     })
     
     df = pd.concat([df, df1], ignore_index=True)
+    
+    
+    if not file_path.endswith("c1.iqtree"):
+        file_path = file_path.replace('.iqtree', '.log')
+        name = name.replace('res','init')
+    
+        AC = []
+        AG = []
+        AT = []
+        CG = []
+        CT = []
+        GT = []
+        FA = []
+        FC = []
+        FG = []
+        FT = []
+        qAC = []
+        qAG = []
+        qAT = []
+        qCG = []
+        qCT = []
+        qGT = []
+        
+        with open(file_path) as b:
+            for line in b.readlines():
+                if 'weights = (' in line:
+                    weight_str = line.split()[2].split(',')
+                    weight = [float(item.strip('()')) for item in weight_str]
+                    break
+        
+        with open(file_path) as b:
+            for line in b.readlines():
+                for j in range(1,n_class+1):
+                    if 'Class ' + str(j) + '\'s freq:' in line:
+                        r = []
+                        f = []
+                        
+                        AC.append(1)
+                        AG.append(1)
+                        AT.append(1)
+                        CG.append(1)
+                        CT.append(1)
+                        GT.append(1)
+                        FA.append(float(line.split()[3]))
+                        FC.append(float(line.split()[4]))
+                        FG.append(float(line.split()[5]))
+                        FT.append(float(line.split()[6]))
+                        
+                        r.append(1)
+                        r.append(1)
+                        r.append(1)
+                        r.append(1)
+                        r.append(1)
+                        f.append(float(line.split()[3]))
+                        f.append(float(line.split()[4]))
+                        f.append(float(line.split()[5]))
+                        f.append(float(line.split()[6]))
+                        
+                        q = normal_q(r,f)
+                        qAC.append(q[0][1])
+                        qAG.append(q[0][2])
+                        qAT.append(q[0][3])
+                        qCG.append(q[1][2])
+                        qCT.append(q[1][3])
+                        qGT.append(q[2][3])
+                        
+                if len(qGT) == n_class:
+                    break
+        
+        df1 = pd.DataFrame({
+            'name': [name]*n_class,
+            'lnl': [lnl]*n_class,
+            'class': list(range(1, n_class+1)),
+            'weight': weight,
+            'AC': AC,
+            'AG': AG,  
+            'AT': AT, 
+            'CG': CG, 
+            'CT': CT, 
+            'GT': GT, 
+            'FA': FA, 
+            'FC': FC, 
+            'FG': FG, 
+            'FT': FT,
+            'qAC': qAC,
+            'qAG': qAG,  
+            'qAT': qAT, 
+            'qCG': qCG, 
+            'qCT': qCT, 
+            'qGT': qGT
+        })                
+    
+        df = pd.concat([df, df1], ignore_index=True)
 
 df.to_excel(xlsx_file, index=False, engine='openpyxl')
 
