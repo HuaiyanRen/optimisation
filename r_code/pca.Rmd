@@ -22,8 +22,6 @@ options(scipen=999)
 c6t50r05k_para <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t50r05k/para.xlsx")
 ```
 
-
-
 ```{r}
 para_sub <- c6t50r05k_para
 
@@ -34,9 +32,7 @@ para_sub <- para_sub %>% select(name, everything())
 ```
 
 ```{r}
-method_sub <- para_sub %>% filter(method == 'i2')
-
-pca1 <- prcomp(method_sub[,c(15:18)],center = FALSE, scale. = FALSE)
+pca1 <- prcomp(para_sub[,c(15:18)],center = FALSE, scale. = FALSE)
 
 df1 <- pca1$x 
 df1 <- as.data.frame(df1) 
@@ -44,14 +40,17 @@ df1 <- as.data.frame(df1)
 summ1 <- summary(pca1)
 xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
 ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+
+df1$name <- para_sub$name
+df1$weight <- para_sub$weight
+df1$class <- para_sub$class
+df1$method <- para_sub$method
+df1$nclass <- para_sub$nclass
+df1$rep <- para_sub$rep
 ```
 
 ```{r}
-df1$name <- method_sub$name
-df1$weight <- method_sub$weight
-df1$class <- method_sub$class
-
-p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+p1 = ggplot(data = df1 %>% filter(method == 'i5') ,aes(x = PC1,y = PC2))+
   geom_point(aes(size = weight), alpha = 0.2)+
   #scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1, size = "weight")+
@@ -65,7 +64,23 @@ p1
 ```
 
 ```{r}
-class_sub <- method_sub %>% filter(class == 1 & nclass == 'c4')
+p2 = ggplot(data = df1 %>% filter(nclass %in% c('c6init', 'c6') 
+                                  & method %in% c('i3', 'i4','i5')
+                                  & rep == 'r1') ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  #scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1, size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~name,nrow = 3)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+p2
+```
+
+```{r}
+class_sub <- para_sub %>% filter(class == 1 & method == 'i3' & nclass == 'c5')
 list(class_sub$lnl)
 ```
 
