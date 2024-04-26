@@ -17,6 +17,54 @@ library(readxl)
 options(scipen=999)
 ```
 
+# method test
+```{r}
+c6t50r05k_para <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/data/f81_qmix/c6t50r05k/para.xlsx")
+```
+
+
+
+```{r}
+para_sub <- c6t50r05k_para
+
+para_sub <- para_sub %>%
+  separate(name, into = c("dataset", "method", "rep", "nclass"), sep = "_")
+para_sub$name <- c6t50r05k_para$name
+para_sub <- para_sub %>% select(name, everything())
+```
+
+```{r}
+method_sub <- para_sub %>% filter(method == 'i2')
+
+pca1 <- prcomp(method_sub[,c(15:18)],center = FALSE, scale. = FALSE)
+
+df1 <- pca1$x 
+df1 <- as.data.frame(df1) 
+
+summ1 <- summary(pca1)
+xlab1 <- paste0("PC1(",round(summ1$importance[2,1]*100,2),"%)")
+ylab1 <- paste0("PC2(",round(summ1$importance[2,2]*100,2),"%)")
+```
+
+```{r}
+df1$name <- method_sub$name
+df1$weight <- method_sub$weight
+df1$class <- method_sub$class
+
+p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  #scale_size_continuous(range = c(1, 5)) +
+  labs(x = xlab1,y = ylab1, size = "weight")+
+  guides(fill = "none")+
+  facet_wrap(~name,nrow = 5)+
+  #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+p1
+```
+
+
 # turtle
 ```{r}
 turtlet1 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/data/turtle/t1/para.xlsx")
