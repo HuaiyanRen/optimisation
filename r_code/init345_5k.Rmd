@@ -431,7 +431,7 @@ ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(meth
 ```
 
 ```{r}
-ggplot(lnl_data %>% filter(class > 4 & method > 2), aes(x = as.character(class), y = lnl, color = as.character(method)))+
+ggplot(lnl_data %>% filter(class > 4 & method > 0), aes(x = as.character(class), y = lnl, color = as.character(method)))+
   geom_boxplot()+
   #xlim(5,7)+
   #ylim(-923560,-923510)+
