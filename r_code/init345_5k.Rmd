@@ -425,18 +425,16 @@ lnl_data <- c6t50r05k
 
 
 ```{r}
-ggplot(lnl_data, aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data, aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
   theme_bw()
 ```
 
 ```{r}
-ggplot(lnl_data %>% filter(method == 0 | method == 2 | method == 4), aes(x = class, y = lnl, color = as.character(method)))+
-  geom_point()+
-  xlim(5,7)+
-  ylim(-923560,-923510)+
-  geom_line(aes(group = rep))+
+ggplot(lnl_data %>% filter(class > 4 & method > 2), aes(x = as.character(class), y = lnl, color = as.character(method)))+
+  geom_boxplot()+
+  #xlim(5,7)+
+  #ylim(-923560,-923510)+
   theme_bw()
 ```
 
@@ -462,7 +460,7 @@ times <- rbind(times, temptime)
 ```
 
 ```{r}
-ggplot(times, aes(x = as.character(method), y = runtime, color = method))+
+ggplot(times %>% filter(method >= 3 & method != 6), aes(x = as.character(method), y = runtime, color = method))+
   geom_boxplot()+
   labs(y = 'runtime(s)')+
   theme_bw()
