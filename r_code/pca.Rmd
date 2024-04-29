@@ -95,7 +95,7 @@ turtlet5 <- read_excel("C:/Users/u7151703/Desktop/research/optimisation/data/tur
 
 
 ```{r}
-para_sub <- turtlet5
+para_sub <- turtlet1
 
 para_sub$qAC_l <- log(para_sub$qAC,base = 10)
 para_sub$qAG_l <- log(para_sub$qAG,base = 10)
@@ -129,6 +129,65 @@ p1 = ggplot(data = df1 ,aes(x = PC1,y = PC2))+
   theme_bw()
 
 p1
+```
+
+```{r}
+p12 = ggplot(data = df1 %>% filter(name %in% c('turtle_t1_c1_r3','turtle_t1_c2_r1')) ,aes(x = PC1,y = PC2, color = name))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(5, 10)) +
+  labs(x = xlab1,y = ylab1, size = "weight")+
+  guides(color = "none", size = "none")+
+  theme_bw()
+
+p12
+```
+
+```{r}
+p23 = ggplot(data = df1 %>% filter(name %in% c('turtle_t1_c2_r1','turtle_t1_c3_r4')) ,aes(x = PC1,y = PC2, color = name))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(5, 10)) +
+  labs(x = xlab1,y = ylab1, size = "weight")+
+  guides(color = "none", size = "none")+
+  theme_bw()
+
+p23
+```
+
+```{r}
+p34 = ggplot(data = df1 %>% filter(name %in% c('turtle_t1_c3_r4','turtle_t1_c4_r3')) ,aes(x = PC1,y = PC2, color = name))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(5, 10)) +
+  labs(x = xlab1,y = ylab1, size = "weight")+
+  guides(color = "none", size = "none")+
+  theme_bw()
+
+p34
+```
+
+```{r}
+p45 = ggplot(data = df1 %>% filter(name %in% c('turtle_t1_c4_r3','turtle_t1_c5_r1')) ,aes(x = PC1,y = PC2, color = name))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(5, 10)) +
+  labs(x = xlab1,y = ylab1, size = "weight")+
+  guides(color = "none", size = "none")+
+  theme_bw()
+
+p45
+```
+
+```{r}
+p56 = ggplot(data = df1 %>% filter(name %in% c('turtle_t1_c5_r1','turtle_t1_c6_r3')) ,aes(x = PC1,y = PC2, color = name))+
+  geom_point(aes(size = weight), alpha = 0.2)+
+  scale_size_continuous(range = c(5, 10)) +
+  labs(x = xlab1,y = ylab1, size = "weight")+
+  guides(color = "none", size = "none")+
+  theme_bw()
+
+p56
+```
+
+```{r}
+(p12 | p23) / (p34 | p45) / (p56 | p56)
 ```
 
 
