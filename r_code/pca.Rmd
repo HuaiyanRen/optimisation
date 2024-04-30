@@ -27,6 +27,12 @@ para_sub <- c6t50r05k_para
 
 para_sub <- para_sub %>%
   separate(name, into = c("dataset", "method", "rep", "nclass"), sep = "_")
+para_sub <- para_sub %>%
+  mutate(step = gsub(".*(res|init)", "\\1", nclass),
+         category = gsub(".*(c[0-9]+).*", "\\1", nclass))
+para_sub$nclass <- para_sub$category
+para_sub <- para_sub[, -which(names(para_sub) == "category")]
+
 para_sub$name <- c6t50r05k_para$name
 para_sub <- para_sub %>% select(name, everything())
 ```
@@ -47,6 +53,7 @@ df1$class <- para_sub$class
 df1$method <- para_sub$method
 df1$nclass <- para_sub$nclass
 df1$rep <- para_sub$rep
+df1$step = para_sub$step
 ```
 
 ```{r}
@@ -64,14 +71,12 @@ p1
 ```
 
 ```{r}
-p2 = ggplot(data = df1 %>% filter(nclass %in% c('c6init', 'c6') 
-                                  & method %in% c('i3', 'i4','i5')
-                                  & rep == 'r1') ,aes(x = PC1,y = PC2))+
-  geom_point(aes(size = weight), alpha = 0.2)+
+p2 = ggplot(data = df1 %>% filter(method %in% c('i3')) ,aes(x = PC1,y = PC2, color = step))+
+  geom_point(aes(size = weight), alpha = 0.3)+
   #scale_size_continuous(range = c(1, 5)) +
   labs(x = xlab1,y = ylab1, size = "weight")+
   guides(fill = "none")+
-  facet_wrap(~name,nrow = 3)+
+  facet_grid(rep~nclass)+
   #geom_text(aes(label = class), vjust = 1.5, size = 3.5)+
   theme_bw()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
